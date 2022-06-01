@@ -25,7 +25,7 @@
             Or to use an IconElement instead of a Symbol see https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/projectTypes/navigationpane.md
             Lots of Segoe UI Symbol icons: http://modernicons.io/segoe-mdl2/cheatsheet/
             -->
-            <NavigationViewItem x:Uid="Shell_Input" Icon="Microphone" helpers:NavigationHelper.NavigateTo="AnalyseAudio_PInfo.ViewModels.InputViewModel" />
+            <NavigationViewItem x:Uid="Shell_Capture" Icon="Microphone" helpers:NavigationHelper.NavigateTo="AnalyseAudio_PInfo.ViewModels.CaptureViewModel" />
             <NavigationViewItem x:Uid="Shell_Spectrogram" Icon="ViewAll" helpers:NavigationHelper.NavigateTo="AnalyseAudio_PInfo.ViewModels.SpectrogramViewModel" />
             <NavigationViewItem x:Uid="Shell_Piano" Icon="Keyboard" helpers:NavigationHelper.NavigateTo="AnalyseAudio_PInfo.ViewModels.PianoViewModel" />
             <NavigationViewItem x:Uid="Shell_Console" Icon="Repair" helpers:NavigationHelper.NavigateTo="AnalyseAudio_PInfo.ViewModels.ConsoleViewModel" />

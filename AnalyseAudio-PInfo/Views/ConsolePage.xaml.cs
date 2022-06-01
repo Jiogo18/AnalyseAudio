@@ -32,34 +32,33 @@ namespace AnalyseAudio_PInfo.Views
             Scroller.ChangeView(null, Scroller.ExtentHeight, null, true);
         }
 
-        private async void Logger_Added(object sender, LogData e)
+        private void Logger_Added(object sender, LogData e)
         {
             string time = e.timestamp.ToString("[HH:mm:ss.fff] ");
 
+            DispatcherQueue?.TryEnqueue(
+                Microsoft.UI.Dispatching.DispatcherQueuePriority.Low,
+                async () =>
+                {
+                    Paragraph myParagraph = new();
+                    Run run = new() { Text = time + e.message };
+                    myParagraph.Inlines.Add(run);
+                    switch (e.context)
+                    {
+                        case LogContext.Warning:
+                            // create Paragraph in Yellow
+                            myParagraph.Foreground = new SolidColorBrush(Colors.Yellow);
+                            break;
+                        case LogContext.Error:
+                            // in Red
+                            myParagraph.Foreground = new SolidColorBrush(Colors.Red);
+                            break;
+                    }
 
-
-
-            //_ = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Low, async () =>
-            //{
-            Paragraph myParagraph = new();
-            Run run = new() { Text = time + e.message };
-            myParagraph.Inlines.Add(run);
-            switch (e.context)
-            {
-                case LogContext.Warning:
-                    // create Paragraph in Yellow
-                    myParagraph.Foreground = new SolidColorBrush(Colors.Yellow);
-                    break;
-                case LogContext.Error:
-                    // in Red
-                    myParagraph.Foreground = new SolidColorBrush(Colors.Red);
-                    break;
-            }
-
-            bool scrollBottom = IsScrolledToBottom();
-            txtLogs.Blocks.Add(myParagraph);
-            if (scrollBottom) await ScrollToBottom();
-            //});
+                    bool scrollBottom = IsScrolledToBottom();
+                    txtLogs.Blocks.Add(myParagraph);
+                    if (scrollBottom) await ScrollToBottom();
+                });
         }
     }
 }

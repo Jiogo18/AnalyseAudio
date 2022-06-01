@@ -9,7 +9,7 @@
         public static void Initialize()
         {
             Instance = new Manager();
-            InputManager.Initialize();
+            CaptureManager.Initialize();
         }
     }
 }

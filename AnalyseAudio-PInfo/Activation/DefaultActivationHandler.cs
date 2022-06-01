@@ -19,7 +19,7 @@ namespace AnalyseAudio_PInfo.Activation
 
         protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args)
         {
-            _navigationService.NavigateTo(typeof(InputViewModel).FullName, args.Arguments);
+            _navigationService.NavigateTo(typeof(CaptureViewModel).FullName, args.Arguments);
             await Task.CompletedTask;
         }
 

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Windows.Input;
-
-using AnalyseAudio_PInfo.Contracts.Services;
+﻿using AnalyseAudio_PInfo.Contracts.Services;
 using AnalyseAudio_PInfo.Helpers;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
 using Microsoft.UI.Xaml;
-
+using System.Windows.Input;
 using Windows.ApplicationModel;
 
 namespace AnalyseAudio_PInfo.ViewModels

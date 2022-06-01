@@ -123,8 +123,8 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Analyse an audio content with a spectrogram</value>
   </data>
-  <data name="Shell_Input.Content" xml:space="preserve">
-    <value>Input</value>
+  <data name="Shell_Capture.Content" xml:space="preserve">
+    <value>Capture</value>
   </data>
   <data name="Shell_Spectrogram.Content" xml:space="preserve">
     <value>Spectrogram</value>
@@ -162,5 +162,32 @@ The result is displayed via a spectrogram.</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+  <data name="Update.Content" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="AutoUpdate.Content" xml:space="preserve">
+    <value>Update as soon as possible</value>
+  </data>
+  <data name="Capture_Microphone_Header.Header" xml:space="preserve">
+    <value>Microphone</value>
+  </data>
+  <data name="Capture_Microphone_Item.Content" xml:space="preserve">
+    <value>Microphone</value>
+  </data>
+  <data name="Capture_Speaker_Header.Header" xml:space="preserve">
+    <value>Speaker</value>
+  </data>
+  <data name="Capture_Speaker_Item.Content" xml:space="preserve">
+    <value>Speaker</value>
+  </data>
+  <data name="Capture_Type.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Microphone" xml:space="preserve">
+    <value>Microphone</value>
+  </data>
+  <data name="Speaker" xml:space="preserve">
+    <value>Speaker</value>
   </data>
 </root>

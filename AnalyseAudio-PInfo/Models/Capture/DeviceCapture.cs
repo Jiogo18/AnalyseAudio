@@ -1,18 +1,17 @@
 ﻿using AnalyseAudio_PInfo.Core.Models;
 using NAudio.CoreAudioApi;
 
-namespace AnalyseAudio_PInfo.Models.Input
+namespace AnalyseAudio_PInfo.Models.Capture
 {
-    public abstract class DeviceInput
+    public abstract class DeviceCapture
     {
-        protected DeviceInput() { }
+        protected DeviceCapture() { }
 
         public abstract string Name { get; }
         public abstract string DisplayName { get; }
         public abstract bool IsDefault { get; }
-        public abstract AudioStream GetAudioStream();
-        public abstract void Demarrer();
-        public abstract void Arreter();
+        public abstract void Start(AudioStream stream);
+        public abstract void Stop();
 
 
         public static void ScanSoundCards()
