@@ -52,8 +52,8 @@ namespace AnalyseAudio_PInfo
                 services.AddTransient<ConsolePage>();
                 services.AddTransient<PianoViewModel>();
                 services.AddTransient<PianoPage>();
-                services.AddTransient<SpectogramViewModel>();
-                services.AddTransient<SpectogramPage>();
+                services.AddTransient<SpectrogramViewModel>();
+                services.AddTransient<SpectrogramPage>();
                 services.AddTransient<InputViewModel>();
                 services.AddTransient<InputPage>();
                 services.AddTransient<ShellPage>();

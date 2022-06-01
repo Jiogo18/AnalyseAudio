@@ -4,13 +4,13 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace AnalyseAudio_PInfo.Views
 {
-    public sealed partial class SpectogramPage : Page
+    public sealed partial class SpectrogramPage : Page
     {
-        public SpectogramViewModel ViewModel { get; }
+        public SpectrogramViewModel ViewModel { get; }
 
-        public SpectogramPage()
+        public SpectrogramPage()
         {
-            ViewModel = App.GetService<SpectogramViewModel>();
+            ViewModel = App.GetService<SpectrogramViewModel>();
             InitializeComponent();
         }
     }

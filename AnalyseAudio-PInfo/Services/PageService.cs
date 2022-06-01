@@ -19,7 +19,7 @@ namespace AnalyseAudio_PInfo.Services
         public PageService()
         {
             Configure<InputViewModel, InputPage>();
-            Configure<SpectogramViewModel, SpectogramPage>();
+            Configure<SpectrogramViewModel, SpectrogramPage>();
             Configure<PianoViewModel, PianoPage>();
             Configure<ConsoleViewModel, ConsolePage>();
             Configure<SettingsViewModel, SettingsPage>();

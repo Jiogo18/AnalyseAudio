@@ -126,8 +126,8 @@
   <data name="Shell_Input.Content" xml:space="preserve">
     <value>Entrée</value>
   </data>
-  <data name="Shell_Spectogram.Content" xml:space="preserve">
-    <value>Spectogramme</value>
+  <data name="Shell_Spectrogram.Content" xml:space="preserve">
+    <value>Spectrogramme</value>
   </data>
   <data name="Shell_Piano.Content" xml:space="preserve">
     <value>Piano</value>
@@ -155,7 +155,7 @@
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>Cette application a pour objectif d'analyser le contenu audio via le microphone, une application ou un fichier audio.
-Le résultat s'affichage via un spectogramme</value>
+Le résultat s'affichage via un spectrogramme</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Déclaration de Confidentialité</value>

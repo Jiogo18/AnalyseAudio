@@ -4,9 +4,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AnalyseAudio_PInfo.ViewModels
 {
-    public class SpectogramViewModel : ObservableRecipient
+    public class SpectrogramViewModel : ObservableRecipient
     {
-        public SpectogramViewModel()
+        public SpectrogramViewModel()
         {
         }
     }

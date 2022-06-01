@@ -126,8 +126,8 @@
   <data name="Shell_Input.Content" xml:space="preserve">
     <value>Input</value>
   </data>
-  <data name="Shell_Spectogram.Content" xml:space="preserve">
-    <value>Spectogram</value>
+  <data name="Shell_Spectrogram.Content" xml:space="preserve">
+    <value>Spectrogram</value>
   </data>
   <data name="Shell_Piano.Content" xml:space="preserve">
     <value>Piano</value>
