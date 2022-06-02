@@ -27,8 +27,27 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         public override string Name { get; }
-        public override string DisplayName { get => Name + " " + (IsDefaultForCommunication ? "📞" : "") + (IsDefaultForConsole ? "📟" : "") + (IsDefaultForMultimedia ? "🎶" : ""); }
+        public override string DisplayName
+        {
+            get
+            {
+                string Prefix = (wasapi.State) switch
+                {
+                    DeviceState.Active => "✔️",
+                    DeviceState.Disabled => "🔇",
+                    DeviceState.Unplugged => "🔌",
+                    DeviceState.NotPresent => "🚫",
+                    _ => "❌"
+                };
+                string Suffix =
+                    (IsDefaultForCommunication ? "📞" : "") +
+                    (IsDefaultForConsole ? "📟" : "") +
+                    (IsDefaultForMultimedia ? "🎶" : "");
+                return $"{Prefix} {Name} {Suffix}";
+            }
+        }
         public override bool IsDefault => IsDefaultForConsole;
+        public DeviceState State => wasapi.State;
         internal abstract bool IsDefaultForCommunication { get; }
         internal abstract bool IsDefaultForConsole { get; }
         internal abstract bool IsDefaultForMultimedia { get; }
@@ -77,6 +96,16 @@ namespace AnalyseAudio_PInfo.Models.Capture
         {
             Logger.WriteLine($"BytesRecorded: {e.BytesRecorded}");
             Stream?.PushData(e.Buffer, e.BytesRecorded);
+        }
+
+        public static void ScanSoundCards()
+        {
+            Logger.WriteLine("WASAPI Devices :");
+            MMDeviceEnumerator enumerator = new();
+            foreach (var wasapi in enumerator.EnumerateAudioEndPoints(DataFlow.All, DeviceState.All))
+            {
+                Logger.WriteLine($"\t{wasapi.DataFlow}\t{wasapi.FriendlyName}\t{wasapi.DeviceFriendlyName}\t{wasapi.State}");
+            }
         }
     }
 

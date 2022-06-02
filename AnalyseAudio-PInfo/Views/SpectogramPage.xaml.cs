@@ -11,6 +11,8 @@ namespace AnalyseAudio_PInfo.Views
         public SpectrogramPage()
         {
             ViewModel = App.GetService<SpectrogramViewModel>();
+            DataContext = ViewModel;
+            ViewModel.DispatcherQueue = DispatcherQueue;
             InitializeComponent();
         }
     }

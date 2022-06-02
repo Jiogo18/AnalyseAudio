@@ -19,39 +19,39 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Margin="10,0,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Grid.Row="0" Margin="10,0,10,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="btnUpdateDevices" Margin="4,4,4,4" Click="{x:Bind Path=ViewModel.Devices.UpdateDevices}">
+                    <SymbolIcon Symbol="Refresh" />
+                </Button>
                 <ComboBox
                     x:Name="cbCaptureTypeSelection"
-                    x:Uid="Capture_Type"
                     Width="200"
                     Margin="4,4,4,4"
-                    SelectedIndex="{x:Bind Path=ViewModel.SelectedType, Mode=TwoWay}">
+                    SelectedIndex="{x:Bind Path=ViewModel.Devices.SelectedType, Mode=TwoWay}">
                     <ComboBoxItem x:Name="itemTypeMicrophone" x:Uid="Capture_Microphone_Item" IsSelected="True" />
                     <ComboBoxItem x:Name="itemTypeSpeaker" x:Uid="Capture_Speaker_Item" />
                 </ComboBox>
                 <ComboBox
                     x:Name="cbMicrophoneSelection"
-                    x:Uid="Capture_Microphone_Header"
                     Width="400"
                     Margin="4,4,4,4"
-                    ItemsSource="{x:Bind Path=ViewModel.AvailableMicrophones}"
-                    SelectedItem="{x:Bind Path=ViewModel.SelectedMicrophone, Mode=TwoWay}"
+                    ItemsSource="{x:Bind Path=ViewModel.Devices.Microphones}"
+                    SelectedItem="{x:Bind Path=ViewModel.Devices.SelectedMicrophone, Mode=TwoWay}"
                     Visibility="{x:Bind Path=cbCaptureTypeSelection.SelectedValue, Mode=OneWay, Converter={StaticResource StateVisibilityConverter}, ConverterParameter=itemTypeMicrophone}"
                     DisplayMemberPath="DisplayName" />
                 <ComboBox
                     x:Name="cbSpeakerSelection"
-                    x:Uid="Capture_Speaker_Header"
                     Width="400"
                     Margin="4,4,4,4"
-                    ItemsSource="{x:Bind Path=ViewModel.AvailableSpeakers}"
-                    SelectedItem="{x:Bind Path=ViewModel.SelectedSpeaker, Mode=TwoWay}"
+                    ItemsSource="{x:Bind Path=ViewModel.Devices.Speakers}"
+                    SelectedItem="{x:Bind Path=ViewModel.Devices.SelectedSpeaker, Mode=TwoWay}"
                     Visibility="{x:Bind Path=cbCaptureTypeSelection.SelectedValue, Mode=OneWay, Converter={StaticResource StateVisibilityConverter}, ConverterParameter=itemTypeSpeaker}"
                     DisplayMemberPath="DisplayName" />
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button x:Name="btnStartStop" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.StartStop}" Content="{x:Bind Path=ViewModel.Capture.State, Converter={StaticResource StateButtonStartStopConverter}, Mode=OneWay}" />
                 <Button x:Name="btnUpdate"  x:Uid="Update" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.Update}" />
-                <CheckBox x:Name="chkAutoUpdate" x:Uid="AutoUpdate" IsChecked="{x:Bind Path=viewmodels:CaptureViewModel.IsAutoUpdate, Mode=TwoWay}" Click="{x:Bind Path=ViewModel.Update}" />
+                <CheckBox x:Name="chkAutoUpdate" x:Uid="AutoUpdate" IsChecked="{x:Bind Path=ViewModel.IsAutoUpdate, Mode=TwoWay}" />
             </StackPanel>
         </Grid>
     </Grid>

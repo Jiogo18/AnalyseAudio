@@ -25,16 +25,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
                 enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia)
                 );
             List<DeviceMicrophone> devices = new();
-            foreach (var wasapi in enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+            foreach (var wasapi in enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active | DeviceState.Disabled | DeviceState.Unplugged))
                 devices.Add(new DeviceMicrophone(wasapi, devices.Count, defaultMicrophones));
-            enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.All);
             return devices;
-        }
-
-        public static DeviceMicrophone GetDefault()
-        {
-            MMDeviceEnumerator enumerator = new();
-            return new DeviceMicrophone(enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console), -1, new DefaultMicrophones());
         }
     }
 }

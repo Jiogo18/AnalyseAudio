@@ -4,10 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:forms="using:System.Windows.Forms"
+    xmlns:viewmodels="using:AnalyseAudio_PInfo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SpectrogramViewModel}"
     mc:Ignorable="d"
     Style="{StaticResource PageStyle}">
-
+    <Page.Resources>
+        <viewmodels:BitmapImageConverter x:Key="BitmapImageConverter" />
+    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
@@ -17,7 +20,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image x:Name="Spectogram" Source="{x:Bind Path=ViewModel.Spectrogram, Mode=OneWay}" Width="{x:Bind Path=ViewModel.Spectrogram.DecodePixelWidth, Mode=OneWay}" />
+            <!-- Binding is better here ! https://stackoverflow.com/a/37399720/12908345 -->
+            <Image x:Name="Spectrogram" Source="{Binding Path=SpectrogramImage, Mode=OneWay}" />
         </Grid>
     </Grid>
 </Page>

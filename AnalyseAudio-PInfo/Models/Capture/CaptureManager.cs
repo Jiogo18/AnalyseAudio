@@ -1,7 +1,7 @@
-﻿using AnalyseAudio_PInfo.Models.Capture;
+﻿using AnalyseAudio_PInfo.Core.Models;
 using AnalyseAudio_PInfo.Models.Common;
 
-namespace AnalyseAudio_PInfo.Models
+namespace AnalyseAudio_PInfo.Models.Capture
 {
     public enum DeviceType
     {
@@ -17,11 +17,14 @@ namespace AnalyseAudio_PInfo.Models
 
     public class CaptureManager : NotifyBase
     {
+        static CaptureManager _instance;
+        public static CaptureManager Instance { get { if (_instance == null) _instance = new CaptureManager(); return _instance; } }
+
         CaptureStatus _state = CaptureStatus.Stopped;
         public CaptureStatus State { get => _state; private set { if (_state == value) return; _state = value; OnPropertyChanged(nameof(State)); } }
 
         DeviceCapture _device;
-        public DeviceCapture SelectedDevice
+        internal DeviceCapture SelectedDevice
         {
             get { return _device; }
             set
@@ -34,6 +37,7 @@ namespace AnalyseAudio_PInfo.Models
                 if (State == CaptureStatus.Started)
                     _device?.Start(CaptureStream);
                 previous?.Stop();
+                Logger.WriteLine($"CaptureManager: SelectedDevice is now {value?.DisplayName}");
             }
         }
         public DeviceType Type
@@ -50,11 +54,7 @@ namespace AnalyseAudio_PInfo.Models
 
         private CaptureManager()
         {
-            SelectedDevice = DeviceMicrophone.GetDefault();
         }
-
-        static CaptureManager Instance;
-        public static CaptureManager Initialize() { if (Instance == null) Instance = new CaptureManager(); return Instance; }
 
         public void Start()
         {

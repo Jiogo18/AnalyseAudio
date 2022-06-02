@@ -1,4 +1,4 @@
-﻿using AnalyseAudio_PInfo.Models;
+﻿using AnalyseAudio_PInfo.Models.Capture;
 using Microsoft.UI.Xaml.Data;
 using System;
 
