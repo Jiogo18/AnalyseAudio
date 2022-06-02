@@ -10,9 +10,8 @@ namespace AnalyseAudio_PInfo.Models.Capture
     {
         protected readonly MMDevice wasapi;
         protected WasapiCapture Recorder { get; private set; }
-        WaveInProvider inprov;
-        WaveFloatTo16Provider fto16prov;
-        StereoToMonoProvider16 stomprov;
+        internal AudioStream Stream { get; set; }
+
         internal DeviceWasapi(MMDevice wasapiDevice, int index)
         {
             wasapi = wasapiDevice;
@@ -57,7 +56,6 @@ namespace AnalyseAudio_PInfo.Models.Capture
         internal abstract bool IsDefaultForMultimedia { get; }
         protected bool IsRecording => Recorder != null;
 
-        internal AudioStream Stream { get; set; }
         public override void Start(AudioStream stream)
         {
             if (Recorder != null) return;
@@ -74,10 +72,14 @@ namespace AnalyseAudio_PInfo.Models.Capture
                 Recorder.ShareMode = AudioClientShareMode.Shared;
                 Recorder.RecordingStopped += Recorder_RecordingStopped;
                 Recorder.DataAvailable += RecorderDataAvailable;
+
+                // Log WaveFormat : SampleRate  Channels    Enconding   ExtraSize   BitsPerSample   BlockAlign
+                // Default is :     48000       2           IeeeFloat   0           32              8
+                // New WaveFormat : 48000       2           Pcm         0           16              4
+                Logger.WriteLine($"Default WaveFormat: {Recorder.WaveFormat.SampleRate} {Recorder.WaveFormat.Channels} {Recorder.WaveFormat.Encoding} {Recorder.WaveFormat.ExtraSize} {Recorder.WaveFormat.BitsPerSample} {Recorder.WaveFormat.BlockAlign}");
+                Recorder.WaveFormat = new WaveFormat(48000, 1);
+
                 Stream = stream;
-                inprov = new(Recorder);
-                fto16prov = new(inprov);
-                stomprov = new(fto16prov);
 
                 Recorder.StartRecording();
                 Started();
@@ -113,12 +115,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         private void RecorderDataAvailable(object sender, WaveInEventArgs e)
         {
-            Stream?.PushData(e.Buffer, e.BytesRecorded);
-            byte[] buffer = new byte[e.BytesRecorded];
-            // Read one of these providers to empty the buffer
-            inprov.Read(buffer, 0, e.BytesRecorded);
-            //fto16prov.Read(buffer, 0, e.BytesRecorded);
-            //stomprov.Read(buffer, 0, e.BytesRecorded);
+            Stream?.PushData(e.Buffer, e.BytesRecorded, Recorder.WaveFormat.SampleRate);
         }
 
         private void Recorder_RecordingStopped(object sender, StoppedEventArgs e)

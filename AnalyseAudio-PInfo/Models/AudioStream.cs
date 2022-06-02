@@ -18,10 +18,9 @@ namespace AnalyseAudio_PInfo.Models
 
         public double[] Samples { get; set; }
 
-        public void PushData(byte[] data, int length)
+        public void PushData(byte[] data, int length, int sampleRate)
         {
-            // TODO : FFT here ? (with a timer)
-            DataAvailable?.Invoke(this, new DataReceivedEventArgs(data, length)); // DataAvailable null ? voir comment c'est fait ailleur
+            DataAvailable?.Invoke(this, new DataReceivedEventArgs(data, length, sampleRate));
         }
 
         public event EventHandler<DataReceivedEventArgs> DataAvailable;
@@ -31,11 +30,13 @@ namespace AnalyseAudio_PInfo.Models
     {
         public readonly byte[] Data;
         public readonly int Length;
+        public readonly int SampleRate;
 
-        internal DataReceivedEventArgs(byte[] data, int length)
+        internal DataReceivedEventArgs(byte[] data, int length, int sampleRate)
         {
             Data = data;
             Length = length;
+            SampleRate = sampleRate;
         }
     }
 

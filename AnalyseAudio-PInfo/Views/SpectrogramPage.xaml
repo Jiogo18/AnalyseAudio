@@ -18,7 +18,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <!-- Binding is better here ! https://stackoverflow.com/a/37399720/12908345 -->
-            <Image x:Name="Spectrogram" Source="{Binding Path=SpectrogramImage, Mode=OneWay}" />
+            <Image x:Name="Spectrogram" Source="{Binding Path=SpectrogramImage, Mode=OneWay}" Stretch="Fill" />
         </Grid>
     </Grid>
 </Page>
