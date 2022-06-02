@@ -8,9 +8,6 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:SpectrogramViewModel}"
     mc:Ignorable="d"
     Style="{StaticResource PageStyle}">
-    <Page.Resources>
-        <viewmodels:BitmapImageConverter x:Key="BitmapImageConverter" />
-    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">

@@ -1,4 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
+using NAudio.Wave;
 using System.Collections.Generic;
 
 namespace AnalyseAudio_PInfo.Models.Capture
@@ -29,6 +30,12 @@ namespace AnalyseAudio_PInfo.Models.Capture
             foreach (var wasapi in enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active | DeviceState.Disabled | DeviceState.Unplugged))
                 devices.Add(new DeviceSpeaker(wasapi, devices.Count, defaultSpeakers));
             return devices;
+        }
+
+        public override void Start(AudioStream stream)
+        {
+            if (Recorder != null) return;
+            Start(stream, new WasapiLoopbackCapture(wasapi));
         }
     }
 }

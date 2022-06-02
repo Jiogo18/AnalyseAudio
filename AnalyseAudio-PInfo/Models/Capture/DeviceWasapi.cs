@@ -2,13 +2,17 @@
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using System;
+using System.Windows.Forms;
 
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     public abstract class DeviceWasapi : DeviceCapture
     {
-        readonly MMDevice wasapi;
-        WasapiCapture recorder;
+        protected readonly MMDevice wasapi;
+        protected WasapiCapture Recorder { get; private set; }
+        WaveInProvider inprov;
+        WaveFloatTo16Provider fto16prov;
+        StereoToMonoProvider16 stomprov;
         internal DeviceWasapi(MMDevice wasapiDevice, int index)
         {
             wasapi = wasapiDevice;
@@ -18,11 +22,11 @@ namespace AnalyseAudio_PInfo.Models.Capture
         ~DeviceWasapi()
         {
             wasapi.Dispose();
-            if (recorder != null)
+            if (Recorder != null)
             {
-                recorder.StopRecording();
-                recorder.Dispose();
-                recorder = null;
+                Recorder.StopRecording();
+                Recorder.Dispose();
+                Recorder = null;
             }
         }
 
@@ -51,40 +55,55 @@ namespace AnalyseAudio_PInfo.Models.Capture
         internal abstract bool IsDefaultForCommunication { get; }
         internal abstract bool IsDefaultForConsole { get; }
         internal abstract bool IsDefaultForMultimedia { get; }
+        protected bool IsRecording => Recorder != null;
 
-        private AudioStream Stream;
+        internal AudioStream Stream { get; set; }
         public override void Start(AudioStream stream)
         {
-            if (recorder != null) return;
+            if (Recorder != null) return;
+            Start(stream, new WasapiCapture(wasapi));
+        }
+
+        internal void Start(AudioStream stream, WasapiCapture recorder)
+        {
+            if (Recorder != null) return;
 
             try
             {
-                recorder = new(wasapi);
-                recorder.ShareMode = AudioClientShareMode.Shared;
-                recorder.DataAvailable += RecorderDataAvailable;
+                Recorder = recorder;
+                Recorder.ShareMode = AudioClientShareMode.Shared;
+                Recorder.RecordingStopped += Recorder_RecordingStopped;
+                Recorder.DataAvailable += RecorderDataAvailable;
                 Stream = stream;
-                var inprov = new WaveInProvider(recorder);
-                var fto16prov = new WaveFloatTo16Provider(inprov);
-                var stomprov = new StereoToMonoProvider16(fto16prov);
+                inprov = new(Recorder);
+                fto16prov = new(inprov);
+                stomprov = new(fto16prov);
 
-                recorder.StartRecording();
+                Recorder.StartRecording();
+                Started();
             }
             catch (Exception e)
             {
-                Logger.WriteLine("!!! ERROR !!!" +
+                Logger.Error("!!! ERROR !!!" +
                     "\nMessage:\n   " + e.Message +
                     "\nSource:\n   " + e.Source +
                     "\nStack:\n" + e.StackTrace);
+                MessageBox.Show($"Error while recording the device {DisplayName}: {e.Message} (from {e.Source})", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                recorder.StopRecording();
+                recorder.Dispose();
+                recorder = null;
+                Stopped(StoppedReason.Error);
             }
         }
 
         public override void Stop()
         {
-            if (recorder == null) return;
-            recorder.StopRecording();
-            recorder.Dispose();
-            recorder = null;
+            if (Recorder == null) return;
+            Recorder.StopRecording();
+            Recorder.Dispose();
+            Recorder = null;
             Stream = null;
+            Stopped(StoppedReason.External);
         }
 
         public bool Equals(DeviceWasapi that)
@@ -94,8 +113,21 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         private void RecorderDataAvailable(object sender, WaveInEventArgs e)
         {
-            Logger.WriteLine($"BytesRecorded: {e.BytesRecorded}");
             Stream?.PushData(e.Buffer, e.BytesRecorded);
+            byte[] buffer = new byte[e.BytesRecorded];
+            // Read one of these providers to empty the buffer
+            inprov.Read(buffer, 0, e.BytesRecorded);
+            //fto16prov.Read(buffer, 0, e.BytesRecorded);
+            //stomprov.Read(buffer, 0, e.BytesRecorded);
+        }
+
+        private void Recorder_RecordingStopped(object sender, StoppedEventArgs e)
+        {
+            if (Recorder == null) return;
+            Recorder.Dispose();
+            Recorder = null;
+            Stopped(StoppedReason.Unknown);
+            Logger.Warn($"Recorder suddenly stopped recording:\n{e.Exception}");
         }
 
         public static void ScanSoundCards()

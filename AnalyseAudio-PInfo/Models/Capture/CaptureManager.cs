@@ -34,12 +34,23 @@ namespace AnalyseAudio_PInfo.Models.Capture
                 _device = value;
                 OnPropertyChanged(nameof(SelectedDevice));
                 OnPropertyChanged(nameof(Type));
-                if (State == CaptureStatus.Started)
-                    _device?.Start(CaptureStream);
-                previous?.Stop();
-                Logger.WriteLine($"CaptureManager: SelectedDevice is now {value?.DisplayName}");
+                if (SelectedDevice != null)
+                {
+                    SelectedDevice.OnStart += SelectedDevice_OnStart;
+                    SelectedDevice.OnStop += SelectedDevice_OnStop;
+                    if (State == CaptureStatus.Started)
+                        SelectedDevice.Start(CaptureStream);
+                }
+                if (previous != null)
+                {
+                    previous.OnStart -= SelectedDevice_OnStart;
+                    previous.OnStop -= SelectedDevice_OnStop;
+                    previous.Stop();
+                }
+                Logger.WriteLine($"CaptureManager: SelectedDevice is now {SelectedDevice?.DisplayName}");
             }
         }
+
         public DeviceType Type
         {
             get
@@ -74,5 +85,16 @@ namespace AnalyseAudio_PInfo.Models.Capture
             SelectedDevice?.Start(CaptureStream);
             State = CaptureStatus.Started;
         }
+
+        private void SelectedDevice_OnStart(object sender, System.EventArgs e)
+        {
+            State = CaptureStatus.Started;
+        }
+
+        private void SelectedDevice_OnStop(object sender, DeviceCapture.StoppedReason e)
+        {
+            State = CaptureStatus.Stopped;
+        }
+
     }
 }
