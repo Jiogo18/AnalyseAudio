@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using AnalyseAudio_PInfo.Contracts.Services;
+﻿using AnalyseAudio_PInfo.Contracts.Services;
 using AnalyseAudio_PInfo.ViewModels;
 using AnalyseAudio_PInfo.Views;
-
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AnalyseAudio_PInfo.Services
 {
@@ -19,7 +16,7 @@ namespace AnalyseAudio_PInfo.Services
         public PageService()
         {
             Configure<CaptureViewModel, CapturePage>();
-            Configure<SpectrogramViewModel, SpectrogramPage>();
+            Configure<SpectrogramConfigViewModel, SpectrogramConfigPage>();
             Configure<PianoViewModel, PianoPage>();
             Configure<ConsoleViewModel, ConsolePage>();
             Configure<SettingsViewModel, SettingsPage>();

@@ -1,4 +1,5 @@
-﻿using AnalyseAudio_PInfo.Models.Capture;
+﻿using AnalyseAudio_PInfo.Models;
+using AnalyseAudio_PInfo.Models.Capture;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 
@@ -17,8 +18,8 @@ namespace AnalyseAudio_PInfo.ViewModels
 
         public CaptureViewModel()
         {
-            Capture = CaptureManager.Instance;
-            Devices = DeviceCaptureManager.Instance;
+            Capture = Manager.Capture;
+            Devices = Manager.DeviceCapture;
             Devices.RestoreSelection();
         }
 

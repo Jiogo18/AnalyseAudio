@@ -1,0 +1,12 @@
+﻿<Grid
+    x:Class="AnalyseAudio_PInfo.Views.SpectrogramElement"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:AnalyseAudio_PInfo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SpectrogramViewModel}"
+    mc:Ignorable="d">
+            <!-- Binding is better here ! https://stackoverflow.com/a/37399720/12908345 -->
+    <Image x:Name="Spectrogram" Source="{Binding Path=SpectrogramImage, Mode=OneWay}" Stretch="Fill" />
+</Grid>

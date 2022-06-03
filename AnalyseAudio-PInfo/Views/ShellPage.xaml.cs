@@ -1,9 +1,9 @@
 ﻿using AnalyseAudio_PInfo.Contracts.Services;
+using AnalyseAudio_PInfo.Models;
 using AnalyseAudio_PInfo.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-
 using Windows.System;
 
 namespace AnalyseAudio_PInfo.Views
@@ -21,6 +21,7 @@ namespace AnalyseAudio_PInfo.Views
             InitializeComponent();
             ViewModel.NavigationService.Frame = shellFrame;
             ViewModel.NavigationViewService.Initialize(navigationView);
+            Unloaded += ShellPage_Unloaded;
         }
 
         private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -48,6 +49,11 @@ namespace AnalyseAudio_PInfo.Views
             var navigationService = App.GetService<INavigationService>();
             var result = navigationService.GoBack();
             args.Handled = result;
+        }
+
+        private void ShellPage_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            Manager.Close();
         }
     }
 }

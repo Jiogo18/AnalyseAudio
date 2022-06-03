@@ -157,12 +157,6 @@
     <value>Cette application a pour objectif d'analyser le contenu audio via le microphone, une application ou un fichier audio.
 Le résultat s'affichage via un spectrogramme</value>
   </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Déclaration de Confidentialité</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
   <data name="Update.Content" xml:space="preserve">
     <value>Appliquer</value>
   </data>
@@ -195,5 +189,8 @@ Le résultat s'affichage via un spectrogramme</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Arrêter</value>
+  </data>
+  <data name="OpenSpectrogramWindow.Text" xml:space="preserve">
+    <value>Ouvrir le spectrogramme dans une nouvelle fenêtre</value>
   </data>
 </root>

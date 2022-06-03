@@ -8,9 +8,6 @@ namespace AnalyseAudio_PInfo.Models.Capture
 {
     public class DeviceCaptureManager : NotifyBase
     {
-        static DeviceCaptureManager _instance;
-        public static DeviceCaptureManager Instance { get { if (_instance == null) _instance = new DeviceCaptureManager(); return _instance; } }
-
         public bool IsAutoUpdate { get; set; } = true;
 
         public DeviceCaptureManager()
@@ -97,18 +94,18 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         public void RestoreSelection()
         {
-            DeviceCapture SelectedDevice = CaptureManager.Instance.SelectedDevice;
+            DeviceCapture SelectedDevice = Manager.Capture.SelectedDevice;
 
             if (SelectedDevice == null)
             {
                 if (SelectedMicrophone != null)
                 {
-                    CaptureManager.Instance.SelectedDevice = SelectedMicrophone;
+                    Manager.Capture.SelectedDevice = SelectedMicrophone;
                     SelectedType = (int)DeviceType.Microphone;
                 }
                 else if (SelectedSpeaker != null)
                 {
-                    CaptureManager.Instance.SelectedDevice = SelectedSpeaker;
+                    Manager.Capture.SelectedDevice = SelectedSpeaker;
                     SelectedType = (int)DeviceType.Speaker;
                 }
             }
@@ -137,7 +134,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
             if (SelectedDevice != null)
             {
-                CaptureManager.Instance.SelectedDevice = SelectedDevice;
+                Manager.Capture.SelectedDevice = SelectedDevice;
                 switch (SelectedDevice.State)
                 {
                     case NAudio.CoreAudioApi.DeviceState.Disabled:

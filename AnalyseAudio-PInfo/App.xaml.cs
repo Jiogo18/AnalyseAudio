@@ -46,14 +46,17 @@ namespace AnalyseAudio_PInfo
                 services.AddSingleton<IFileService, FileService>();
 
                 // Views and ViewModels
+                services.AddTransient<SpectrogramViewModel>();
+                services.AddTransient<SpectrogramElement>();
+                services.AddTransient<SpectrogramWindow>();
                 services.AddTransient<SettingsViewModel>();
                 services.AddTransient<SettingsPage>();
                 services.AddTransient<ConsoleViewModel>();
                 services.AddTransient<ConsolePage>();
                 services.AddTransient<PianoViewModel>();
                 services.AddTransient<PianoPage>();
-                services.AddTransient<SpectrogramViewModel>();
-                services.AddTransient<SpectrogramPage>();
+                services.AddTransient<SpectrogramConfigViewModel>();
+                services.AddTransient<SpectrogramConfigPage>();
                 services.AddTransient<CaptureViewModel>();
                 services.AddTransient<CapturePage>();
                 services.AddTransient<ShellPage>();

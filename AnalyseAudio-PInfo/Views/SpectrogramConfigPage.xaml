@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="AnalyseAudio_PInfo.Views.SpectrogramConfigPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:AnalyseAudio_PInfo.ViewModels" xmlns:views="using:AnalyseAudio_PInfo.Views"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SpectrogramConfigViewModel}"
+    mc:Ignorable="d"
+    Style="{StaticResource PageStyle}">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Configuration..."></TextBlock>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <views:SpectrogramElement />
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="btnOpenSpectrogram" Margin="10,10,10,10" Click="{x:Bind Path=ViewModel.OpenSpectrogram}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <SymbolIcon Grid.Column="0" Symbol="NewWindow" Margin="0,0,8,0" />
+                            <TextBlock Grid.Column="1" TextWrapping="WrapWholeWords" x:Uid="OpenSpectrogramWindow"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

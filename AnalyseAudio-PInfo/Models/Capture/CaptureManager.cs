@@ -17,9 +17,6 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
     public class CaptureManager : NotifyBase
     {
-        static CaptureManager _instance;
-        public static CaptureManager Instance { get { if (_instance == null) _instance = new CaptureManager(); return _instance; } }
-
         CaptureStatus _state = CaptureStatus.Stopped;
         public CaptureStatus State { get => _state; private set { if (_state == value) return; _state = value; OnPropertyChanged(nameof(State)); } }
 
@@ -63,7 +60,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         public readonly AudioStream CaptureStream = new();
 
-        private CaptureManager()
+        public CaptureManager()
         {
         }
 

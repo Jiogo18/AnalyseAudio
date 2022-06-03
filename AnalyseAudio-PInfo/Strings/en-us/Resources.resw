@@ -157,12 +157,6 @@
     <value>This application aims to analyze audio content of the microphone, an application or an audio file.
 The result is displayed via a spectrogram.</value>
   </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
   <data name="Update.Content" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -195,5 +189,9 @@ The result is displayed via a spectrogram.</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="OpenSpectrogramWindow.Text" xml:space="preserve">
+    <value>Open the spectrogram in a new window</value>
+    <comment>.</comment>
   </data>
 </root>
