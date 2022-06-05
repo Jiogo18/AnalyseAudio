@@ -13,7 +13,7 @@ namespace AnalyseAudio_PInfo.ViewModels
         public bool IsAutoUpdate
         {
             get => Devices.IsAutoUpdate;
-            set { Devices.IsAutoUpdate = value; if (value) Update(); }
+            set { Devices.IsAutoUpdate = value; if (value) Update(); OnPropertyChanged(nameof(IsAutoUpdate)); }
         }
 
         public CaptureViewModel()

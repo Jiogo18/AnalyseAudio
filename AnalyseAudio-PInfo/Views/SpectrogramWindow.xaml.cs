@@ -14,6 +14,7 @@ namespace AnalyseAudio_PInfo
         {
             InitializeComponent();
             Closed += SpectrogramWindow_Closed;
+            Title = "Spectrogramme";
         }
 
         static SpectrogramWindow _instance;

@@ -1,4 +1,5 @@
-﻿using AnalyseAudio_PInfo.Models.Common;
+﻿using AnalyseAudio_PInfo.Core.Models;
+using AnalyseAudio_PInfo.Models.Common;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
@@ -11,16 +12,20 @@ namespace AnalyseAudio_PInfo.Models
     public class SpectrogramGenerator : NotifyBase
     {
         public event EventHandler<BitmapImage> ImageAvailable;
+        public event EventHandler<BitmapImage> VerticalImageAvailable;
 
         bool IsCapturing = false;
         readonly List<object> ViewsOpen = new();
         readonly AudioStream CaptureStream;
         Spectrogram.SpectrogramGenerator generator;
-        readonly BitmapImage SpectrogramImage = new();
+        internal Spectrogram.SpectrogramGenerator Generator { get => generator; }
+        public readonly BitmapImage SpectrogramImage = new();
+        public readonly BitmapImage SpectrogramVerticalImage = new();
 
         public SpectrogramGenerator(AudioStream stream)
         {
             CaptureStream = stream;
+            CreateGenerator(new SpectrogramConfig());
         }
 
         void Resume()
@@ -57,10 +62,26 @@ namespace AnalyseAudio_PInfo.Models
                 Pause();
         }
 
-        private void CreateGenerator(int sampleRate)
+        public void CreateGenerator(SpectrogramConfig config)
         {
-            generator = new(sampleRate, fftSize: 4096, stepSize: 200, maxFreq: 3000, fixedWidth: 4096);
+            generator = config.CreateGenerator();
+            Bitmap verticalBitmap = generator.GetVerticalScale(100);
+            SpectrogramVerticalImage.DispatcherQueue.TryEnqueue(() =>
+            {
+                SetBitmapImageWithBitmapAndStream(verticalBitmap, SpectrogramVerticalImage);
+                VerticalImageAvailable?.Invoke(this, SpectrogramVerticalImage);
+            });
+            Logger.WriteLine($"Generator created {generator.FreqMax}");
+            OnPropertyChanged();
         }
+
+        public SpectrogramConfig Config => new SpectrogramConfig(generator);
+        public int SampleRate => generator.SampleRate;
+        public int FFTSize => generator.FftSize;
+        public int StepSize => generator.StepSize;
+        public double FreqMin => generator.FreqMin;
+        public double FreqMax => generator.FreqMax;
+
 
         //double[] previousInputs = System.Array.Empty<double>();
         //double[] previousOutputs = System.Array.Empty<double>();
@@ -84,8 +105,10 @@ namespace AnalyseAudio_PInfo.Models
 
         private void CaptureStream_DataAvailable(object sender, DataReceivedEventArgs e)
         {
-            if (generator == null || generator.SampleRate != e.SampleRate)
-                CreateGenerator(e.SampleRate);
+            if (generator.SampleRate != e.SampleRate)
+            {
+                CreateGenerator(new SpectrogramConfig(generator) { SampleRate = e.SampleRate });
+            }
 
             double[] data = new double[e.Length];
             for (int i = 0; i < e.Length; i++)

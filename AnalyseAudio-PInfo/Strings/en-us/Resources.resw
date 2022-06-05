@@ -157,10 +157,10 @@
     <value>This application aims to analyze audio content of the microphone, an application or an audio file.
 The result is displayed via a spectrogram.</value>
   </data>
-  <data name="Update.Content" xml:space="preserve">
+  <data name="UpdateButton.Content" xml:space="preserve">
     <value>Apply</value>
   </data>
-  <data name="AutoUpdate.Content" xml:space="preserve">
+  <data name="UpdateAutoCheckBox.Content" xml:space="preserve">
     <value>Update as soon as possible</value>
   </data>
   <data name="Capture_Microphone_Header.Header" xml:space="preserve">
@@ -190,8 +190,29 @@ The result is displayed via a spectrogram.</value>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
-  <data name="OpenSpectrogramWindow.Text" xml:space="preserve">
+  <data name="OpenSpectrogramWindow.Content" xml:space="preserve">
     <value>Open the spectrogram in a new window</value>
     <comment>.</comment>
+  </data>
+  <data name="SpectrogramWindow.Title" xml:space="preserve">
+    <value>Spectrogram</value>
+  </data>
+  <data name="sliderFreqMax.Header" xml:space="preserve">
+    <value>Max Frequency</value>
+  </data>
+  <data name="sliderFreqMin.Header" xml:space="preserve">
+    <value>Min Frequency</value>
+  </data>
+  <data name="Spectrogram_FFTSize.Text" xml:space="preserve">
+    <value>FFT Size</value>
+  </data>
+  <data name="Spectrogram_FreqMax.Text" xml:space="preserve">
+    <value>Frequency max</value>
+  </data>
+  <data name="Spectrogram_FreqMin.Text" xml:space="preserve">
+    <value>Frequency min</value>
+  </data>
+  <data name="Spectrogram_StepSize.Text" xml:space="preserve">
+    <value>Step Size</value>
   </data>
 </root>

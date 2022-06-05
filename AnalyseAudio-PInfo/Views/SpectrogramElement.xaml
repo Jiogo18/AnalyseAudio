@@ -7,6 +7,11 @@
     xmlns:viewmodels="using:AnalyseAudio_PInfo.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SpectrogramViewModel}"
     mc:Ignorable="d">
-            <!-- Binding is better here ! https://stackoverflow.com/a/37399720/12908345 -->
-    <Image x:Name="Spectrogram" Source="{Binding Path=SpectrogramImage, Mode=OneWay}" Stretch="Fill" />
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="auto" />
+    </Grid.ColumnDefinitions>
+    <!-- Binding is better here ! https://stackoverflow.com/a/37399720/12908345 -->
+    <Image Grid.Column="0" x:Name="Spectrogram" Source="{Binding Path=SpectrogramImage, Mode=OneWay}" Stretch="Fill" />
+    <Image Grid.Column="1" x:Name="SpectrogramVertical" Source="{Binding Path=SpectrogramVerticalImage, Mode=OneWay}" Stretch="Uniform" MaxWidth="500" />
 </Grid>

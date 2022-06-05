@@ -4,10 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:AnalyseAudio_PInfo.ViewModels" xmlns:views="using:AnalyseAudio_PInfo.Views"
+    xmlns:viewmodels="using:AnalyseAudio_PInfo.ViewModels"
+    xmlns:views="using:AnalyseAudio_PInfo.Views"
     d:DataContext="{d:DesignInstance Type=viewmodels:SpectrogramConfigViewModel}"
     mc:Ignorable="d"
     Style="{StaticResource PageStyle}">
+    <Page.Resources>
+        <viewmodels:NegativeBoolConverter x:Key="NegativeBoolConverter" />
+    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
@@ -16,22 +20,49 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0">
-                <TextBlock Text="Configuration..."></TextBlock>
-            </StackPanel>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Spectrogram_FFTSize" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="comboBoxFFTSize" ItemsSource="{x:Bind Path=ViewModel.FFTSizes}" SelectedItem="{x:Bind Path=ViewModel.FFTSize, Mode=TwoWay}" Margin="10" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Spectrogram_StepSize" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <NumberBox Grid.Row="1" Grid.Column="1" x:Name="sliderStepSize" Minimum="1" Maximum="1000" Value="{x:Bind Path=ViewModel.StepSize, Mode=TwoWay}" Margin="10" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Spectrogram_FreqMin" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <views:FrequencySlider Grid.Row="2" Grid.Column="1" x:Name="sliderFreqMin" Frequency="{x:Bind Path=ViewModel.FreqMin, Mode=TwoWay}" Margin="10" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" x:Uid="Spectrogram_FreqMax" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <views:FrequencySlider Grid.Row="3" Grid.Column="1" x:Name="sliderFreqMax" Frequency="{x:Bind Path=ViewModel.FreqMax, Mode=TwoWay}" Margin="10" />
+                </Grid>
+                <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button x:Name="btnUpdate"  x:Uid="UpdateButton" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.Update}" IsEnabled="{x:Bind Path=ViewModel.IsAutoUpdate, Converter={StaticResource NegativeBoolConverter}, Mode=OneWay}" />
+                    <CheckBox x:Name="chkAutoUpdate" x:Uid="UpdateAutoCheckBox" IsChecked="{x:Bind Path=ViewModel.IsAutoUpdate, Mode=TwoWay}" />
+                </StackPanel>
+            </Grid>
             <Grid Grid.Row="1">
                 <views:SpectrogramElement />
-                <Button HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="btnOpenSpectrogram" Margin="10,10,10,10" Click="{x:Bind Path=ViewModel.OpenSpectrogram}">
+                <Button HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="btnOpenSpectrogram" Margin="10,10,10,10" Click="{x:Bind Path=viewmodels:SpectrogramConfigViewModel.OpenSpectrogram}">
                     <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <SymbolIcon Grid.Column="0" Symbol="NewWindow" Margin="0,0,8,0" />
-                            <TextBlock Grid.Column="1" TextWrapping="WrapWholeWords" x:Uid="OpenSpectrogramWindow"/>
-                        </Grid>
+                        <SymbolIcon Symbol="NewWindow" />
                     </Button.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip x:Uid="OpenSpectrogramWindow" Placement="Bottom" />
+                    </ToolTipService.ToolTip>
                 </Button>
             </Grid>
         </Grid>

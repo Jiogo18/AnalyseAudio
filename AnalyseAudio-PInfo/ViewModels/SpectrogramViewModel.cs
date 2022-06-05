@@ -21,13 +21,29 @@ namespace AnalyseAudio_PInfo.ViewModels
                 });
             }
         }
+        BitmapImage _spectrogramVetical = new();
+        public BitmapImage SpectrogramVerticalImage
+        {
+            get => _spectrogramVetical;
+            private set
+            {
+                _spectrogramVetical.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () =>
+                {
+                    _spectrogramVetical = value;
+                    OnPropertyChanged(nameof(SpectrogramVerticalImage));
+                });
+            }
+        }
+
 
 
         public SpectrogramViewModel()
         {
             Generator = Manager.SpectrogramStream;
             Generator.ImageAvailable += (sender, image) => SpectrogramImage = image;
-
+            Generator.VerticalImageAvailable += (sender, image) => SpectrogramVerticalImage = image;
+            SpectrogramImage = Generator.SpectrogramImage;
+            SpectrogramVerticalImage = Generator.SpectrogramVerticalImage;
         }
     }
 }

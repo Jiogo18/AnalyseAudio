@@ -20,13 +20,13 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         ~DeviceWasapi()
         {
-            wasapi.Dispose();
             if (Recorder != null)
             {
                 Recorder.StopRecording();
                 Recorder.Dispose();
                 Recorder = null;
             }
+            wasapi.Dispose();
         }
 
         public override string Name { get; }

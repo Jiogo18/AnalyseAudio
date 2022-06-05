@@ -11,6 +11,7 @@
     <Page.Resources>
         <viewmodels:StateVisibilityConverter x:Key="StateVisibilityConverter" />
         <viewmodels:StateButtonStartStopConverter x:Key="StateButtonStartStopConverter" />
+        <viewmodels:NegativeBoolConverter x:Key="NegativeBoolConverter" />
     </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
@@ -50,8 +51,8 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button x:Name="btnStartStop" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.StartStop}" Content="{x:Bind Path=ViewModel.Capture.State, Converter={StaticResource StateButtonStartStopConverter}, Mode=OneWay}" />
-                <Button x:Name="btnUpdate"  x:Uid="Update" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.Update}" />
-                <CheckBox x:Name="chkAutoUpdate" x:Uid="AutoUpdate" IsChecked="{x:Bind Path=ViewModel.IsAutoUpdate, Mode=TwoWay}" />
+                <Button x:Name="btnUpdate"  x:Uid="UpdateButton" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.Update}" IsEnabled="{x:Bind Path=ViewModel.IsAutoUpdate, Converter={StaticResource NegativeBoolConverter}, Mode=OneWay}" />
+                <CheckBox x:Name="chkAutoUpdate" x:Uid="UpdateAutoCheckBox" IsChecked="{x:Bind Path=ViewModel.IsAutoUpdate, Mode=TwoWay}" />
             </StackPanel>
         </Grid>
     </Grid>
