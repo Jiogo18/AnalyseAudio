@@ -29,7 +29,7 @@ namespace AnalyseAudio_PInfo.ViewModels
             {
                 _spectrogramVetical.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () =>
                 {
-                    _spectrogramVetical = value;
+                    _spectrogramVetical = Generator.IsVerticalImageEnabled ? value : new();
                     OnPropertyChanged(nameof(SpectrogramVerticalImage));
                 });
             }
@@ -38,6 +38,8 @@ namespace AnalyseAudio_PInfo.ViewModels
         public SpectrogramViewModel()
         {
             Generator = Manager.SpectrogramStream;
+            SpectrogramImage = Generator.SpectrogramImage;
+            SpectrogramVerticalImage = Generator.SpectrogramVerticalImage;
             Generator.PropertyChanged += Generator_PropertyChanged;
         }
 
@@ -49,7 +51,7 @@ namespace AnalyseAudio_PInfo.ViewModels
                     SpectrogramImage = Generator.SpectrogramImage;
                     break;
                 case nameof(SpectrogramGenerator.SpectrogramVerticalImage):
-                    SpectrogramVerticalImage = Generator.IsVerticalImageEnabled ? Generator.SpectrogramVerticalImage : new();
+                    SpectrogramVerticalImage = Generator.SpectrogramVerticalImage;
                     break;
             }
         }

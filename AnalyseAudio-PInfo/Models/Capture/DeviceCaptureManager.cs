@@ -55,6 +55,20 @@ namespace AnalyseAudio_PInfo.Models.Capture
             }
         }
 
+        public ObservableCollection<DeviceWaveIn> WaveInDevices { get; } = new();
+        DeviceWaveIn _deviceWaveIn;
+        public DeviceWaveIn SelectedWaveIn
+        {
+            get { return _deviceWaveIn; }
+            set
+            {
+                SelectedType = (int)DeviceType.WaveIn;
+                if (_deviceWaveIn == value) return;
+                _deviceWaveIn = value;
+                OnPropertyChanged(nameof(SelectedWaveIn));
+            }
+        }
+
         public void UpdateDevices()
         {
             bool wasAutoUpdate = IsAutoUpdate;
@@ -62,13 +76,17 @@ namespace AnalyseAudio_PInfo.Models.Capture
             int previousType = SelectedType;
             List<DeviceMicrophone> Microphones = DeviceMicrophone.ListWASAPI();
             List<DeviceSpeaker> Speakers = DeviceSpeaker.ListWASAPI();
+            List<DeviceWaveIn> WaveInDevices = DeviceWaveIn.ListDevices();
             this.Microphones.Clear();
             Microphones.ForEach(m => this.Microphones.Add(m));
             this.Speakers.Clear();
             Speakers.ForEach(s => this.Speakers.Add(s));
+            this.WaveInDevices.Clear();
+            WaveInDevices.ForEach(w => this.WaveInDevices.Add(w));
 
             SelectedMicrophone = SelectDefaultDevice(Microphones, SelectedMicrophone);
             SelectedSpeaker = SelectDefaultDevice(Speakers, SelectedSpeaker);
+            SelectedWaveIn = SelectDefaultDevice(WaveInDevices, SelectedWaveIn);
             SelectedType = previousType;
             if (wasAutoUpdate)
             {
@@ -78,7 +96,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         // Select the previous device, or the default, or the first
-        static T SelectDefaultDevice<T>(List<T> Devices, T previous) where T : DeviceWasapi
+        static T SelectDefaultDevice<T>(List<T> Devices, T previous) where T : DeviceCapture
         {
             T newSelected = null;
             if (previous != null)
@@ -108,11 +126,17 @@ namespace AnalyseAudio_PInfo.Models.Capture
                     Manager.Capture.SelectedDevice = SelectedSpeaker;
                     SelectedType = (int)DeviceType.Speaker;
                 }
+                else if (SelectedWaveIn != null)
+                {
+                    Manager.Capture.SelectedDevice = SelectedWaveIn;
+                    SelectedType = (int)DeviceType.WaveIn;
+                }
             }
             else
             {
                 if (SelectedDevice is DeviceMicrophone) SelectedMicrophone = SelectedDevice as DeviceMicrophone;
                 else if (SelectedDevice is DeviceSpeaker) SelectedSpeaker = SelectedDevice as DeviceSpeaker;
+                else if (SelectedDevice is DeviceWaveIn) SelectedWaveIn = SelectedDevice as DeviceWaveIn;
             }
         }
 
@@ -125,24 +149,28 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         public void ApplyChanges()
         {
-            DeviceWasapi SelectedDevice = SelectedType switch
+            DeviceCapture SelectedDevice = SelectedType switch
             {
                 (int)DeviceType.Microphone => SelectedMicrophone,
                 (int)DeviceType.Speaker => SelectedSpeaker,
+                (int)DeviceType.WaveIn => SelectedWaveIn,
                 _ => null
             };
 
             if (SelectedDevice != null)
             {
                 Manager.Capture.SelectedDevice = SelectedDevice;
-                switch (SelectedDevice.State)
+                if (SelectedDevice is DeviceWasapi)
                 {
-                    case NAudio.CoreAudioApi.DeviceState.Disabled:
-                        SendWarning($"The Device {SelectedDevice.DisplayName} is Disabled. You need to enable it in Windows, or choose another device.");
-                        break;
-                    case NAudio.CoreAudioApi.DeviceState.Unplugged:
-                        SendWarning($"The Device {SelectedDevice.DisplayName} is Unplugged. You need to plug it, or choose another device.");
-                        break;
+                    switch ((SelectedDevice as DeviceWasapi).State)
+                    {
+                        case NAudio.CoreAudioApi.DeviceState.Disabled:
+                            SendWarning($"The Device {SelectedDevice.DisplayName} is Disabled. You need to enable it in Windows, or choose another device.");
+                            break;
+                        case NAudio.CoreAudioApi.DeviceState.Unplugged:
+                            SendWarning($"The Device {SelectedDevice.DisplayName} is Unplugged. You need to plug it, or choose another device.");
+                            break;
+                    }
                 }
             }
         }

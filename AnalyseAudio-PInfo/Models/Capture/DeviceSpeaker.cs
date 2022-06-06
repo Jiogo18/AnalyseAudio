@@ -32,10 +32,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
             return devices;
         }
 
-        public override void Start(AudioStream stream)
+        public override void Start(AudioStream stream, WaveFormat waveFormat)
         {
             if (Recorder != null) return;
-            Start(stream, new WasapiLoopbackCapture(wasapi));
+            Start(stream, new WasapiLoopbackCapture(wasapi), waveFormat);
         }
     }
 }

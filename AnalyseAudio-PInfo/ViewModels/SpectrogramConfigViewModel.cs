@@ -18,6 +18,8 @@ namespace AnalyseAudio_PInfo.ViewModels
             _freqMax = generator.FreqMax;
             _intensity = generator.Intensity;
             _verticalImage = generator.IsVerticalImageEnabled;
+            _viewdB = generator.IsdB;
+            _roll = generator.IsRoll;
             OnPropertyChanged();
         }
 
@@ -36,7 +38,7 @@ namespace AnalyseAudio_PInfo.ViewModels
             {
                 if (_freqMin == value) return;
                 _freqMin = value;
-                if (FreqMax < FreqMin) FreqMax = FreqMin;
+                if (FreqMax <= FreqMin) FreqMax = FreqMin + 1;
                 OnPropertyChanged(nameof(FreqMin));
             }
         }
@@ -48,7 +50,7 @@ namespace AnalyseAudio_PInfo.ViewModels
             {
                 if (_freqMax == value) return;
                 _freqMax = value;
-                if (FreqMax < FreqMin) FreqMin = FreqMax;
+                if (FreqMax <= FreqMin) FreqMin = FreqMax - 1;
                 OnPropertyChanged(nameof(FreqMax));
             }
         }
@@ -57,6 +59,10 @@ namespace AnalyseAudio_PInfo.ViewModels
         public double Intensity { get => _intensity; set { if (_intensity == value) return; _intensity = value; OnPropertyChanged(nameof(Intensity)); } }
         bool _verticalImage = false;
         public bool VerticalImage { get => _verticalImage; set { if (_verticalImage == value) return; _verticalImage = value; OnPropertyChanged(nameof(VerticalImage)); } }
+        bool _viewdB = false;
+        public bool DB { get => _viewdB; set { if (_viewdB == value) return; _viewdB = value; OnPropertyChanged(nameof(DB)); } }
+        bool _roll = false;
+        public bool Roll { get => _roll; set { if (_roll == value) return; _roll = value; OnPropertyChanged(nameof(Roll)); } }
 
         readonly List<string> PropertiesChanged = new();
         Task TaskWaitUpdate;
@@ -100,8 +106,11 @@ namespace AnalyseAudio_PInfo.ViewModels
                 bool WaitBeforeUpdating = propertyName switch
                 {
                     "FFTSize" => false,
+                    "FixedSize" => false,
                     "IsAutoUpdate" => false,
                     "VerticalImage" => false,
+                    "DB" => false,
+                    "Roll" => false,
                     _ => true,
                 };
 
@@ -144,6 +153,12 @@ namespace AnalyseAudio_PInfo.ViewModels
                     break;
                 case nameof(VerticalImage):
                     Manager.SpectrogramStream.IsVerticalImageEnabled = VerticalImage;
+                    break;
+                case nameof(DB):
+                    Manager.SpectrogramStream.IsdB = DB;
+                    break;
+                case nameof(Roll):
+                    Manager.SpectrogramStream.IsRoll = Roll;
                     break;
             }
         }

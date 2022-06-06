@@ -224,4 +224,25 @@ The result is displayed via a spectrogram.</value>
   <data name="Spectrogram_VerticalImage.Text" xml:space="preserve">
     <value>Frequency scale</value>
   </data>
+  <data name="Capture_WaveIn_Header.Header" xml:space="preserve">
+    <value>WaveIn</value>
+  </data>
+  <data name="Capture_WaveIn_Item.Content" xml:space="preserve">
+    <value>WaveIn</value>
+  </data>
+  <data name="Capture_BitsPerSample.Text" xml:space="preserve">
+    <value>Bits Per Sample</value>
+  </data>
+  <data name="Capture_Channels.Text" xml:space="preserve">
+    <value>Channels</value>
+  </data>
+  <data name="Capture_SampleRate.Text" xml:space="preserve">
+    <value>Sample Rate</value>
+  </data>
+  <data name="Spectrogram_dB.Text" xml:space="preserve">
+    <value>dB</value>
+  </data>
+  <data name="Spectrogram_Roll.Text" xml:space="preserve">
+    <value>Roll</value>
+  </data>
 </root>

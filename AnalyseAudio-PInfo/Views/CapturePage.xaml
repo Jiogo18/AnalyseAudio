@@ -18,9 +18,10 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Margin="10,0,10,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button x:Name="btnUpdateDevices" Margin="4,4,4,4" Click="{x:Bind Path=ViewModel.Devices.UpdateDevices}">
                     <SymbolIcon Symbol="Refresh" />
                 </Button>
@@ -31,6 +32,7 @@
                     SelectedIndex="{x:Bind Path=ViewModel.Devices.SelectedType, Mode=TwoWay}">
                     <ComboBoxItem x:Name="itemTypeMicrophone" x:Uid="Capture_Microphone_Item" IsSelected="True" />
                     <ComboBoxItem x:Name="itemTypeSpeaker" x:Uid="Capture_Speaker_Item" />
+                    <ComboBoxItem x:Name="itemTypeWaveIn" x:Uid="Capture_WaveIn_Item" />
                 </ComboBox>
                 <ComboBox
                     x:Name="cbMicrophoneSelection"
@@ -48,8 +50,37 @@
                     SelectedItem="{x:Bind Path=ViewModel.Devices.SelectedSpeaker, Mode=TwoWay}"
                     Visibility="{x:Bind Path=cbCaptureTypeSelection.SelectedValue, Mode=OneWay, Converter={StaticResource StateVisibilityConverter}, ConverterParameter=itemTypeSpeaker}"
                     DisplayMemberPath="DisplayName" />
+                <ComboBox
+                    x:Name="cbWaveInSelection"
+                    Width="400"
+                    Margin="4,4,4,4"
+                    ItemsSource="{x:Bind Path=ViewModel.Devices.WaveInDevices}"
+                    SelectedItem="{x:Bind Path=ViewModel.Devices.SelectedWaveIn, Mode=TwoWay}"
+                    Visibility="{x:Bind Path=cbCaptureTypeSelection.SelectedValue, Mode=OneWay, Converter={StaticResource StateVisibilityConverter}, ConverterParameter=itemTypeWaveIn}"
+                    DisplayMemberPath="DisplayName" />
             </StackPanel>
-            <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Capture_SampleRate" Margin="10,10,0,10" VerticalAlignment="Center" />
+                <NumberBox Grid.Row="0" Grid.Column="1" Minimum="1" Value="{x:Bind Path=ViewModel.SampleRate, Mode=TwoWay}" Margin="10" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Capture_Channels" Margin="10,10,0,10" VerticalAlignment="Center" />
+                <NumberBox Grid.Row="1" Grid.Column="1" Minimum="1" Value="{x:Bind Path=ViewModel.Channels, Mode=TwoWay}" Margin="10" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Capture_BitsPerSample" Margin="10,10,0,10" VerticalAlignment="Center" />
+                <NumberBox Grid.Row="2" Grid.Column="1" Minimum="1" Value="{x:Bind Path=ViewModel.BitsPerSample, Mode=TwoWay}" Margin="10" />
+
+            </Grid>
+            <StackPanel Grid.Row="2" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button x:Name="btnStartStop" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.StartStop}" Content="{x:Bind Path=ViewModel.Capture.State, Converter={StaticResource StateButtonStartStopConverter}, Mode=OneWay}" />
                 <Button x:Name="btnUpdate"  x:Uid="UpdateButton" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.Update}" IsEnabled="{x:Bind Path=ViewModel.IsAutoUpdate, Converter={StaticResource NegativeBoolConverter}, Mode=OneWay}" />
                 <CheckBox x:Name="chkAutoUpdate" x:Uid="UpdateAutoCheckBox" IsChecked="{x:Bind Path=ViewModel.IsAutoUpdate, Mode=TwoWay}" />

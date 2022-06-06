@@ -56,11 +56,17 @@
                     <views:FrequencySlider Grid.Row="2" Grid.Column="1" x:Name="sliderFreqMax" Frequency="{x:Bind Path=ViewModel.FreqMax, Mode=TwoWay}" Margin="10" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" x:Uid="Spectrogram_Intensity" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <Slider Grid.Row="3" Grid.Column="1" x:Name="sliderIntensity" Minimum="0" Maximum="100" Value="{x:Bind Path=ViewModel.Intensity, Mode=TwoWay}" Margin="10" />
+                    <Slider Grid.Row="3" Grid.Column="1" x:Name="sliderIntensity" Minimum="0" Maximum="1000" Value="{x:Bind Path=ViewModel.Intensity, Mode=TwoWay}" Margin="10" />
 
                     <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <TextBlock x:Uid="Spectrogram_VerticalImage" VerticalAlignment="Center" Margin="10,10,0,10" />
                         <CheckBox x:Name="checkBoxVerticalImage" IsChecked="{x:Bind Path=ViewModel.VerticalImage, Mode=TwoWay}" Margin="10" />
+
+                        <TextBlock x:Uid="Spectrogram_dB" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <CheckBox x:Name="checkBoxdB" IsChecked="{x:Bind Path=ViewModel.DB, Mode=TwoWay}" Margin="10" />
+
+                        <TextBlock x:Uid="Spectrogram_Roll" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <CheckBox x:Name="checkBoxRoll" IsChecked="{x:Bind Path=ViewModel.Roll, Mode=TwoWay}" Margin="10" />
                     </StackPanel>
                 </Grid>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">

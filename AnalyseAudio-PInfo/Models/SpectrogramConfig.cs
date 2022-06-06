@@ -4,7 +4,7 @@
     {
         public int SampleRate = 48000;
         public int FFTSize = 4096;
-        public int StepSize = 200;
+        public int StepSize = 100;
         public double FreqMin = 0;
         public double FreqMax = 3000;
         public int OffsetHz = 0;

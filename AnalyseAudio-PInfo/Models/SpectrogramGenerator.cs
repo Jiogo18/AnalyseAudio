@@ -1,6 +1,7 @@
 ﻿using AnalyseAudio_PInfo.Models.Common;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Imaging;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -71,14 +72,21 @@ namespace AnalyseAudio_PInfo.Models
         public int StepSize => generator.StepSize;
         public double FreqMin => generator.FreqMin;
         public double FreqMax => generator.FreqMax;
-        public double Intensity { get; set; } = 20;
-        public int FixedWidth { get; set; } = 4096;
+        public double Intensity { get; set; } = 200;
+        int _fixedWidth = 5000;
+        public int FixedWidth
+        {
+            get => _fixedWidth;
+            set { if (_fixedWidth == value) return; _fixedWidth = value; OnPropertyChanged(nameof(FixedWidth)); Generator?.SetFixedWidth(value); }
+        }
         bool _verticalImageEnabled = false;
         public bool IsVerticalImageEnabled
         {
             get => _verticalImageEnabled;
             set { if (_verticalImageEnabled == value) return; _verticalImageEnabled = value; OnPropertyChanged(nameof(IsVerticalImageEnabled)); UpdateVerticalImage(); }
         }
+        public bool IsdB { get; set; } = false;
+        public bool IsRoll { get; set; } = false;
 
 
         //double[] previousInputs = System.Array.Empty<double>();
@@ -111,15 +119,20 @@ namespace AnalyseAudio_PInfo.Models
             double[] data = new double[e.Length];
             for (int i = 0; i < e.Length; i++)
                 data[i] = e.Data[i];
-            generator.Add(data, true);
+            lock (generator)
+                generator.Add(data, true);
 
-            Bitmap bitmap = generator.GetBitmap(Intensity);
-            SpectrogramImage.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Low, () =>
+            try
             {
-                SetBitmapImageWithBitmapAndStream(bitmap, SpectrogramImage);
-                OnPropertyChanged(nameof(SpectrogramImage));
-                bitmap.Dispose();
-            });
+                Bitmap bitmap = generator.GetBitmap(Intensity, dB: IsdB, roll: IsRoll);
+                SpectrogramImage.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Low, () =>
+                {
+                    SetBitmapImageWithBitmapAndStream(bitmap, SpectrogramImage);
+                    OnPropertyChanged(nameof(SpectrogramImage));
+                    bitmap.Dispose();
+                });
+            }
+            catch (Exception) { } // Recreating the generator
         }
 
         // Stream is better (17 ms) than byte[] (400 ms)
@@ -138,7 +151,7 @@ namespace AnalyseAudio_PInfo.Models
 
         private void UpdateVerticalImage()
         {
-            Bitmap verticalBitmap = generator.GetVerticalScale(80, 0, 1);
+            Bitmap verticalBitmap = generator.GetVerticalScale(80);
             SpectrogramVerticalImage.DispatcherQueue.TryEnqueue(() =>
             {
                 SetBitmapImageWithBitmapAndStream(verticalBitmap, SpectrogramVerticalImage);

@@ -34,7 +34,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         {
             get
             {
-                string Prefix = (wasapi.State) switch
+                string Prefix = wasapi.State switch
                 {
                     DeviceState.Active => "✔️",
                     DeviceState.Disabled => "🔇",
@@ -54,15 +54,22 @@ namespace AnalyseAudio_PInfo.Models.Capture
         internal abstract bool IsDefaultForCommunication { get; }
         internal abstract bool IsDefaultForConsole { get; }
         internal abstract bool IsDefaultForMultimedia { get; }
-        protected bool IsRecording => Recorder != null;
-
-        public override void Start(AudioStream stream)
+        public override bool IsRecording => Recorder != null;
+        bool Restart = false;
+        public override WaveFormat WaveFormat
         {
-            if (Recorder != null) return;
-            Start(stream, new WasapiCapture(wasapi));
+            get => Recorder?.WaveFormat;
+            set { if (Recorder == null) return; Restart = true; Recorder.StopRecording(); Recorder.WaveFormat = value; }
         }
 
-        internal void Start(AudioStream stream, WasapiCapture recorder)
+
+        public override void Start(AudioStream stream, WaveFormat waveFormat)
+        {
+            if (Recorder != null) return;
+            Start(stream, new WasapiCapture(wasapi), waveFormat);
+        }
+
+        internal void Start(AudioStream stream, WasapiCapture recorder, WaveFormat waveFormat)
         {
             if (Recorder != null) return;
 
@@ -73,11 +80,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
                 Recorder.RecordingStopped += Recorder_RecordingStopped;
                 Recorder.DataAvailable += RecorderDataAvailable;
 
-                // Log WaveFormat : SampleRate  Channels    Enconding   ExtraSize   BitsPerSample   BlockAlign
-                // Default is :     48000       2           IeeeFloat   0           32              8
-                // New WaveFormat : 48000       2           Pcm         0           16              4
-                Logger.WriteLine($"Default WaveFormat: {Recorder.WaveFormat.SampleRate} {Recorder.WaveFormat.Channels} {Recorder.WaveFormat.Encoding} {Recorder.WaveFormat.ExtraSize} {Recorder.WaveFormat.BitsPerSample} {Recorder.WaveFormat.BlockAlign}");
-                Recorder.WaveFormat = new WaveFormat(48000, 1);
+                Recorder.WaveFormat = waveFormat;
 
                 Stream = stream;
 
@@ -100,17 +103,19 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         public override void Stop()
         {
-            if (Recorder == null) return;
-            Recorder.StopRecording();
-            Recorder.Dispose();
-            Recorder = null;
-            Stream = null;
+            StopInternal();
             Stopped(StoppedReason.External);
         }
 
-        public bool Equals(DeviceWasapi that)
+        protected override void StopInternal()
         {
-            return wasapi.ID == that.wasapi.ID;
+            if (Recorder != null)
+            {
+                Recorder.StopRecording();
+                Recorder.Dispose();
+                Recorder = null;
+            }
+            Stream = null;
         }
 
         private void RecorderDataAvailable(object sender, WaveInEventArgs e)
@@ -120,11 +125,25 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         private void Recorder_RecordingStopped(object sender, StoppedEventArgs e)
         {
-            if (Recorder == null) return;
-            Recorder.Dispose();
-            Recorder = null;
-            Stopped(StoppedReason.Unknown);
-            Logger.Warn($"Recorder suddenly stopped recording:\n{e.Exception}");
+            if (e.Exception == null)
+            {
+                if (Restart)
+                {
+                    Restart = false;
+                    try
+                    {
+                        Recorder.StartRecording();
+                    }
+                    catch (Exception e2)
+                    {
+                        StopByException(e2);
+                    }
+                }
+            }
+            else
+            {
+                StopByException(e.Exception);
+            }
         }
 
         public static void ScanSoundCards()
