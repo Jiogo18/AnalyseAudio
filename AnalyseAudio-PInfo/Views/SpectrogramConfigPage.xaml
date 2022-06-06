@@ -35,19 +35,33 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Spectrogram_FFTSize" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="comboBoxFFTSize" ItemsSource="{x:Bind Path=ViewModel.FFTSizes}" SelectedItem="{x:Bind Path=ViewModel.FFTSize, Mode=TwoWay}" Margin="10" />
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock x:Uid="Spectrogram_FFTSize" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <ComboBox x:Name="comboBoxFFTSize" ItemsSource="{x:Bind Path=ViewModel.FFTSizes}" SelectedItem="{x:Bind Path=ViewModel.FFTSize, Mode=TwoWay}" Margin="10" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Spectrogram_StepSize" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <NumberBox Grid.Row="1" Grid.Column="1" x:Name="sliderStepSize" Minimum="1" Maximum="1000" Value="{x:Bind Path=ViewModel.StepSize, Mode=TwoWay}" Margin="10" />
+                        <TextBlock x:Uid="Spectrogram_StepSize" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <NumberBox x:Name="numberStepSize" Minimum="1" Value="{x:Bind Path=ViewModel.StepSize, Mode=TwoWay}" Margin="10" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Spectrogram_FreqMin" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <views:FrequencySlider Grid.Row="2" Grid.Column="1" x:Name="sliderFreqMin" Frequency="{x:Bind Path=ViewModel.FreqMin, Mode=TwoWay}" Margin="10" />
+                        <TextBlock x:Uid="Spectrogram_FixedSize" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <NumberBox x:Name="numberFixedSize" Minimum="1" Value="{x:Bind Path=ViewModel.FixedSize, Mode=TwoWay}" Margin="10" />
+                    </StackPanel>
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" x:Uid="Spectrogram_FreqMax" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <views:FrequencySlider Grid.Row="3" Grid.Column="1" x:Name="sliderFreqMax" Frequency="{x:Bind Path=ViewModel.FreqMax, Mode=TwoWay}" Margin="10" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Spectrogram_FreqMin" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <views:FrequencySlider Grid.Row="1" Grid.Column="1" x:Name="sliderFreqMin" Frequency="{x:Bind Path=ViewModel.FreqMin, Mode=TwoWay}" Margin="10" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Spectrogram_FreqMax" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <views:FrequencySlider Grid.Row="2" Grid.Column="1" x:Name="sliderFreqMax" Frequency="{x:Bind Path=ViewModel.FreqMax, Mode=TwoWay}" Margin="10" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" x:Uid="Spectrogram_Intensity" VerticalAlignment="Center" Margin="10,10,0,10" />
+                    <Slider Grid.Row="3" Grid.Column="1" x:Name="sliderIntensity" Minimum="0" Maximum="100" Value="{x:Bind Path=ViewModel.Intensity, Mode=TwoWay}" Margin="10" />
+
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock x:Uid="Spectrogram_VerticalImage" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <CheckBox x:Name="checkBoxVerticalImage" IsChecked="{x:Bind Path=ViewModel.VerticalImage, Mode=TwoWay}" Margin="10" />
+                    </StackPanel>
                 </Grid>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button x:Name="btnUpdate"  x:Uid="UpdateButton" Margin="0,0,10,0" Click="{x:Bind Path=ViewModel.Update}" IsEnabled="{x:Bind Path=ViewModel.IsAutoUpdate, Converter={StaticResource NegativeBoolConverter}, Mode=OneWay}" />

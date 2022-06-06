@@ -13,8 +13,11 @@ namespace AnalyseAudio_PInfo.ViewModels
             SpectrogramGenerator generator = Manager.SpectrogramStream;
             _fftSize = generator.FFTSize;
             _stepSize = generator.StepSize;
+            _fixedSize = generator.FixedWidth;
             _freqMin = generator.FreqMin;
             _freqMax = generator.FreqMax;
+            _intensity = generator.Intensity;
+            _verticalImage = generator.IsVerticalImageEnabled;
             OnPropertyChanged();
         }
 
@@ -23,6 +26,8 @@ namespace AnalyseAudio_PInfo.ViewModels
         public readonly int[] FFTSizes = { 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384 };
         int _stepSize = 200;
         public int StepSize { get => _stepSize; set { if (_stepSize == value) return; _stepSize = value; OnPropertyChanged(nameof(StepSize)); } }
+        int _fixedSize = 4096;
+        public int FixedSize { get => _fixedSize; set { if (_fixedSize == value) return; _fixedSize = value; OnPropertyChanged(nameof(FixedSize)); } }
         double _freqMin = 0;
         public double FreqMin
         {
@@ -47,6 +52,11 @@ namespace AnalyseAudio_PInfo.ViewModels
                 OnPropertyChanged(nameof(FreqMax));
             }
         }
+
+        double _intensity = 1;
+        public double Intensity { get => _intensity; set { if (_intensity == value) return; _intensity = value; OnPropertyChanged(nameof(Intensity)); } }
+        bool _verticalImage = false;
+        public bool VerticalImage { get => _verticalImage; set { if (_verticalImage == value) return; _verticalImage = value; OnPropertyChanged(nameof(VerticalImage)); } }
 
         readonly List<string> PropertiesChanged = new();
         Task TaskWaitUpdate;
@@ -87,7 +97,15 @@ namespace AnalyseAudio_PInfo.ViewModels
 
             if (IsAutoUpdate)
             {
-                TimeWaitUpdate = DateTime.Now.AddMilliseconds(500);
+                bool WaitBeforeUpdating = propertyName switch
+                {
+                    "FFTSize" => false,
+                    "IsAutoUpdate" => false,
+                    "VerticalImage" => false,
+                    _ => true,
+                };
+
+                TimeWaitUpdate = WaitBeforeUpdating ? DateTime.Now.AddMilliseconds(500) : DateTime.Now;
                 if (TaskWaitUpdate == null)
                 {
                     TaskWaitUpdate = Task.Run(async () =>
@@ -118,10 +136,19 @@ namespace AnalyseAudio_PInfo.ViewModels
                         StepSize = StepSize
                     });
                     break;
+                case nameof(Intensity):
+                    Manager.SpectrogramStream.Intensity = Intensity;
+                    break;
+                case nameof(FixedSize):
+                    Manager.SpectrogramStream.FixedWidth = FixedSize;
+                    break;
+                case nameof(VerticalImage):
+                    Manager.SpectrogramStream.IsVerticalImageEnabled = VerticalImage;
+                    break;
             }
         }
 
-        public void FreqMinChanged(object sender, double freq) => FreqMin = freq;
-        public void FreqMaxChanged(object sender, double freq) => FreqMax = freq;
+        public void FreqMinChanged(object _, double freq) => FreqMin = freq;
+        public void FreqMaxChanged(object _, double freq) => FreqMax = freq;
     }
 }

@@ -35,15 +35,23 @@ namespace AnalyseAudio_PInfo.ViewModels
             }
         }
 
-
-
         public SpectrogramViewModel()
         {
             Generator = Manager.SpectrogramStream;
-            Generator.ImageAvailable += (sender, image) => SpectrogramImage = image;
-            Generator.VerticalImageAvailable += (sender, image) => SpectrogramVerticalImage = image;
-            SpectrogramImage = Generator.SpectrogramImage;
-            SpectrogramVerticalImage = Generator.SpectrogramVerticalImage;
+            Generator.PropertyChanged += Generator_PropertyChanged;
+        }
+
+        private void Generator_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SpectrogramGenerator.SpectrogramImage):
+                    SpectrogramImage = Generator.SpectrogramImage;
+                    break;
+                case nameof(SpectrogramGenerator.SpectrogramVerticalImage):
+                    SpectrogramVerticalImage = Generator.IsVerticalImageEnabled ? Generator.SpectrogramVerticalImage : new();
+                    break;
+            }
         }
     }
 }

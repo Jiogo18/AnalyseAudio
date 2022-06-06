@@ -22,7 +22,7 @@
 
         internal Spectrogram.SpectrogramGenerator CreateGenerator()
         {
-            return new Spectrogram.SpectrogramGenerator(SampleRate, FFTSize, StepSize, FreqMin, FreqMax, fixedWidth: 4096, OffsetHz);
+            return new Spectrogram.SpectrogramGenerator(SampleRate, FFTSize, StepSize, FreqMin, FreqMax, offsetHz: OffsetHz);
         }
     }
 }

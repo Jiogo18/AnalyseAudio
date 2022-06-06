@@ -212,6 +212,15 @@ Le résultat s'affichage via un spectrogramme</value>
     <value>Fréquence min</value>
   </data>
   <data name="Spectrogram_StepSize.Text" xml:space="preserve">
-    <value>Écart FFT</value>
+    <value>Écart des FFT</value>
+  </data>
+  <data name="Spectrogram_FixedSize.Text" xml:space="preserve">
+    <value>Nombre maximum de FFT</value>
+  </data>
+  <data name="Spectrogram_Intensity.Text" xml:space="preserve">
+    <value>Intensité</value>
+  </data>
+  <data name="Spectrogram_VerticalImage.Text" xml:space="preserve">
+    <value>Échelle de fréquence</value>
   </data>
 </root>

@@ -213,6 +213,15 @@ The result is displayed via a spectrogram.</value>
     <value>Frequency min</value>
   </data>
   <data name="Spectrogram_StepSize.Text" xml:space="preserve">
-    <value>Step Size</value>
+    <value>FFT Step</value>
+  </data>
+  <data name="Spectrogram_FixedSize.Text" xml:space="preserve">
+    <value>Maximum number of FFTs</value>
+  </data>
+  <data name="Spectrogram_Intensity.Text" xml:space="preserve">
+    <value>Intensity</value>
+  </data>
+  <data name="Spectrogram_VerticalImage.Text" xml:space="preserve">
+    <value>Frequency scale</value>
   </data>
 </root>

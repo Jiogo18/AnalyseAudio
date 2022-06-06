@@ -1,8 +1,6 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
-using AnalyseAudio_PInfo.Models.Common;
+﻿using AnalyseAudio_PInfo.Models.Common;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -11,9 +9,6 @@ namespace AnalyseAudio_PInfo.Models
 {
     public class SpectrogramGenerator : NotifyBase
     {
-        public event EventHandler<BitmapImage> ImageAvailable;
-        public event EventHandler<BitmapImage> VerticalImageAvailable;
-
         bool IsCapturing = false;
         readonly List<object> ViewsOpen = new();
         readonly AudioStream CaptureStream;
@@ -65,22 +60,25 @@ namespace AnalyseAudio_PInfo.Models
         public void CreateGenerator(SpectrogramConfig config)
         {
             generator = config.CreateGenerator();
-            Bitmap verticalBitmap = generator.GetVerticalScale(100);
-            SpectrogramVerticalImage.DispatcherQueue.TryEnqueue(() =>
-            {
-                SetBitmapImageWithBitmapAndStream(verticalBitmap, SpectrogramVerticalImage);
-                VerticalImageAvailable?.Invoke(this, SpectrogramVerticalImage);
-            });
-            Logger.WriteLine($"Generator created {generator.FreqMax}");
+            generator.SetFixedWidth(FixedWidth);
+            UpdateVerticalImage();
             OnPropertyChanged();
         }
 
-        public SpectrogramConfig Config => new SpectrogramConfig(generator);
+        public SpectrogramConfig Config => new(generator);
         public int SampleRate => generator.SampleRate;
         public int FFTSize => generator.FftSize;
         public int StepSize => generator.StepSize;
         public double FreqMin => generator.FreqMin;
         public double FreqMax => generator.FreqMax;
+        public double Intensity { get; set; } = 20;
+        public int FixedWidth { get; set; } = 4096;
+        bool _verticalImageEnabled = false;
+        public bool IsVerticalImageEnabled
+        {
+            get => _verticalImageEnabled;
+            set { if (_verticalImageEnabled == value) return; _verticalImageEnabled = value; OnPropertyChanged(nameof(IsVerticalImageEnabled)); UpdateVerticalImage(); }
+        }
 
 
         //double[] previousInputs = System.Array.Empty<double>();
@@ -115,11 +113,11 @@ namespace AnalyseAudio_PInfo.Models
                 data[i] = e.Data[i];
             generator.Add(data, true);
 
-            Bitmap bitmap = generator.GetBitmap(intensity: 20);
+            Bitmap bitmap = generator.GetBitmap(Intensity);
             SpectrogramImage.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Low, () =>
             {
                 SetBitmapImageWithBitmapAndStream(bitmap, SpectrogramImage);
-                ImageAvailable?.Invoke(this, SpectrogramImage);
+                OnPropertyChanged(nameof(SpectrogramImage));
                 bitmap.Dispose();
             });
         }
@@ -136,6 +134,16 @@ namespace AnalyseAudio_PInfo.Models
                 bitmapImage.SetSource(memoryStream.AsRandomAccessStream());
             }
             return bitmapImage;
+        }
+
+        private void UpdateVerticalImage()
+        {
+            Bitmap verticalBitmap = generator.GetVerticalScale(80, 0, 1);
+            SpectrogramVerticalImage.DispatcherQueue.TryEnqueue(() =>
+            {
+                SetBitmapImageWithBitmapAndStream(verticalBitmap, SpectrogramVerticalImage);
+                OnPropertyChanged(nameof(SpectrogramVerticalImage));
+            });
         }
     }
 }
