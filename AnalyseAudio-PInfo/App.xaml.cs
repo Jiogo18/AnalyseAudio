@@ -77,7 +77,6 @@ namespace AnalyseAudio_PInfo
         {
             InitializeComponent();
             UnhandledException += App_UnhandledException;
-            MainWindow.Closed += MainWindow_Closed;
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -93,6 +92,7 @@ namespace AnalyseAudio_PInfo
             var activationService = App.GetService<IActivationService>();
             await activationService.ActivateAsync(args);
 
+            MainWindow.Closed += MainWindow_Closed;
             Logger.Initialize();
             Manager.Initialize();
         }
