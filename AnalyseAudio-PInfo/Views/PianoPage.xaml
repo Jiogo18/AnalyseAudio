@@ -4,16 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:keyboard="using:AnalyseAudio_PInfo.Views.Keyboard"
     mc:Ignorable="d"
     Style="{StaticResource PageStyle}">
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
-                Place your content here.
-            -->
+            
+            <keyboard:KeyboardElement VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
     </Grid>
 </Page>
