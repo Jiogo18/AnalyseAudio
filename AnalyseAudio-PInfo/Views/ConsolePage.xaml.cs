@@ -32,6 +32,11 @@ namespace AnalyseAudio_PInfo.Views
             Scroller.ChangeView(null, Scroller.ExtentHeight, null, true);
         }
 
+        /// <summary>
+        /// Add a log to the console element
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Logger_Added(object sender, LogData e)
         {
             string time = e.timestamp.ToString("[HH:mm:ss.fff] ");

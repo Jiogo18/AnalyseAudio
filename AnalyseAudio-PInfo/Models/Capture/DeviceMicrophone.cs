@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace AnalyseAudio_PInfo.Models.Capture
 {
+    /// <summary>
+	/// A Microphone using WASAPI
+	/// </summary>
     public class DeviceMicrophone : DeviceWasapi
     {
-        private DeviceMicrophone(MMDevice wasapi, int index, DefaultMicrophones defaultMicrophones) : base(wasapi, index)
+        private DeviceMicrophone(MMDevice wasapi, int index, DefaultWasapi defaultMicrophones) : base(wasapi, index)
         {
             IsDefaultForCommunication = defaultMicrophones.Communication?.ID == wasapi.ID;
             IsDefaultForConsole = defaultMicrophones.Console?.ID == wasapi.ID;
@@ -19,7 +22,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         public static List<DeviceMicrophone> ListWASAPI()
         {
             MMDeviceEnumerator enumerator = new();
-            DefaultMicrophones defaultMicrophones = new(
+            DefaultWasapi defaultMicrophones = new(
                 enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Communications),
                 enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console),
                 enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia)

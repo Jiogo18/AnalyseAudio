@@ -5,10 +5,17 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace AnalyseAudio_PInfo.ViewModels
 {
+    /// <summary>
+	/// ViewModel for the SpecotrgramElement
+	/// </summary>
     public class SpectrogramViewModel : ObservableRecipient
     {
         public readonly SpectrogramGenerator Generator;
         BitmapImage _spectrogram = new();
+        /// <summary>
+		/// The current spectrogram image.
+		/// This image has to be local, so the xaml can access it without interfering with the generator.
+		/// </summary>
         public BitmapImage SpectrogramImage
         {
             get => _spectrogram;
@@ -22,6 +29,10 @@ namespace AnalyseAudio_PInfo.ViewModels
             }
         }
         BitmapImage _spectrogramVetical = new();
+        /// <summary>
+		/// The current frequency scale image
+		/// This image has to be local, so the xaml can access it without interfering with the generator.
+		/// </summary>
         public BitmapImage SpectrogramVerticalImage
         {
             get => _spectrogramVetical;

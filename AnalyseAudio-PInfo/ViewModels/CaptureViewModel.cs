@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace AnalyseAudio_PInfo.ViewModels
 {
+    /// <summary>
+	/// ViewModel of CapturePage
+	/// </summary>
     public class CaptureViewModel : ObservableRecipient
     {
         public readonly CaptureManager Capture;
@@ -50,6 +53,7 @@ namespace AnalyseAudio_PInfo.ViewModels
                 case nameof(SampleRate):
                 case nameof(Channels):
                 case nameof(BitsPerSample):
+                // If any of these properties change, the wave format must be updated
                     PropertiesChanged.Add("WaveFormat");
                     break;
                 default:
@@ -63,7 +67,9 @@ namespace AnalyseAudio_PInfo.ViewModels
             }
         }
 
-        // Update the Capture manager
+        /// <summary>
+		/// Update the Capture manager
+		/// </summary>
         public void Update()
         {
             if (Capture == null) return;
@@ -72,6 +78,10 @@ namespace AnalyseAudio_PInfo.ViewModels
             Devices.ApplyChanges();
         }
 
+        /// <summary>
+		/// Update the Capture manager with a single property (or a "category" of properties)
+		/// </summary>
+		/// <param name="propertyName"></param>
         void UpdateProperty(string propertyName)
         {
             if (Capture == null) return;

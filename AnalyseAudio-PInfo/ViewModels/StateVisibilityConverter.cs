@@ -5,6 +5,9 @@ using System;
 
 namespace AnalyseAudio_PInfo.ViewModels
 {
+    /// <summary>
+	/// A Converter to enable Visibility only if the item selected matches parameter
+	/// </summary>
     public class StateVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string culture)

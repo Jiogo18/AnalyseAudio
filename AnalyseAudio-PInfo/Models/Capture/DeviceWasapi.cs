@@ -6,6 +6,10 @@ using System.Windows.Forms;
 
 namespace AnalyseAudio_PInfo.Models.Capture
 {
+    /// <summary>
+	/// WASAPI is a category of devices/connections.
+	/// It allows computer's recording (DeviceSpeaker) and is pretty stable.
+	/// </summary>
     public abstract class DeviceWasapi : DeviceCapture
     {
         protected readonly MMDevice wasapi;
@@ -34,6 +38,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         {
             get
             {
+                // Prefix of the Display name, depending on the status of the device
                 string Prefix = wasapi.State switch
                 {
                     DeviceState.Active => "✔️",
@@ -42,10 +47,11 @@ namespace AnalyseAudio_PInfo.Models.Capture
                     DeviceState.NotPresent => "🚫",
                     _ => "❌"
                 };
+                // Suffix of the Display name, depending on the default devices
                 string Suffix =
-                    (IsDefaultForCommunication ? "📞" : "") +
-                    (IsDefaultForConsole ? "📟" : "") +
-                    (IsDefaultForMultimedia ? "🎶" : "");
+                    (IsDefaultForCommunication ? "📞" : "") + // Default for Communication: call, phone, meeting...
+                    (IsDefaultForConsole ? "📟" : "") +// Default for Console: System, games, main applications...
+                    (IsDefaultForMultimedia ? "🎶" : "");// Default for Multimedia: Music, videos, movies...
                 return $"{Prefix} {Name} {Suffix}";
             }
         }
@@ -60,6 +66,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         {
             get => Recorder?.WaveFormat;
             set { if (Recorder == null) return; Restart = true; Recorder.StopRecording(); Recorder.WaveFormat = value; }
+            // We have to wait for the Recorder to call Recorder_RecordingStopped and restarting it.
         }
 
 
@@ -69,7 +76,13 @@ namespace AnalyseAudio_PInfo.Models.Capture
             Start(stream, new WasapiCapture(wasapi), waveFormat);
         }
 
-        internal void Start(AudioStream stream, WasapiCapture recorder, WaveFormat waveFormat)
+        /// <summary>
+		/// Start the record for all Wasapi devices
+		/// </summary>
+		/// <param name="stream"></param>
+		/// <param name="recorder"></param>
+		/// <param name="waveFormat"></param>
+        protected void Start(AudioStream stream, WasapiCapture recorder, WaveFormat waveFormat)
         {
             if (Recorder != null) return;
 
@@ -127,6 +140,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         {
             if (e.Exception == null)
             {
+                // Stopped normally
                 if (Restart)
                 {
                     Restart = false;
@@ -157,27 +171,16 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
     }
 
-    struct DefaultMicrophones
+    /// <summary>
+	/// 3 devices (different or not) used by DeviceMicrophone and DeviceSpeaker constructors.
+	/// </summary>
+    struct DefaultWasapi
     {
         internal readonly MMDevice Communication;
         internal readonly MMDevice Console;
         internal readonly MMDevice Multimedia;
 
-        public DefaultMicrophones(MMDevice communication, MMDevice console, MMDevice multimedia)
-        {
-            Communication = communication;
-            Console = console;
-            Multimedia = multimedia;
-        }
-    }
-
-    struct DefaultSpeakers
-    {
-        internal readonly MMDevice Communication;
-        internal readonly MMDevice Console;
-        internal readonly MMDevice Multimedia;
-
-        public DefaultSpeakers(MMDevice communication, MMDevice console, MMDevice multimedia)
+        public DefaultWasapi(MMDevice communication, MMDevice console, MMDevice multimedia)
         {
             Communication = communication;
             Console = console;

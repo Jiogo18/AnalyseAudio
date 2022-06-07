@@ -1,16 +1,8 @@
-﻿*Recommended Markdown viewer: [Markdown Editor VS Extension](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.MarkdownEditor).*
-
-This project was created using [Microsoft Template Studio](https://aka.ms/templatestudio).
+﻿This project was created using [Microsoft Template Studio](https://aka.ms/templatestudio).
 
 ## Getting Started
 This app was built using WinUI 3 and the Windows App SDK.
 Windows UI Library (WinUI) 3 is a native user experience (UX) framework for Windows Desktop apps.
-
-You're ready to build, deploy, and launch your app hitting F5. You can find the app entry point in the `App.xaml.cs` file. 
-Add a breakpoint in the `OnLaunched` method and debug the code. Step into the `ActivationService` methods to understand the app lifecycle.
-
-Don't forget to review the `developer TODOs` we've added for you. 
-You can open the Task List using the menu `Views -> Task List`.
 
 ## File Structure
 ```

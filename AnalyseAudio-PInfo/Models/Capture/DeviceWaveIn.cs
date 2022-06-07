@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace AnalyseAudio_PInfo.Models.Capture
 {
+    /// <summary>
+	/// A Type of device less stable than WASAPI and only for Microphones.
+	/// It still performs well.
+	/// </summary>
     public class DeviceWaveIn : DeviceCapture
     {
         readonly int DeviceIndex;
@@ -38,7 +42,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         public override void Start(AudioStream stream, WaveFormat waveFormat)
         {
             Stream = stream;
-            SampleRate = 48000;
+            SampleRate = waveFormat.SampleRate;
             Recorder = new WaveInEvent
             {
                 BufferMilliseconds = 20, // 50 fps
@@ -74,9 +78,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         private void Wvin_RecordingStopped(object sender, StoppedEventArgs e)
         {
-            Exception exception = e.Exception;
             if (e.Exception == null)
             {
+                // The Recorder stopped normaly
                 if (Restart)
                 {
                     Restart = false;

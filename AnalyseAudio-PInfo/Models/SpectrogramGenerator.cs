@@ -8,6 +8,9 @@ using System.IO;
 
 namespace AnalyseAudio_PInfo.Models
 {
+    /// <summary>
+	/// An interface for Spectrogram.SpectrogramGenerator
+	/// </summary>
     public class SpectrogramGenerator : NotifyBase
     {
         bool IsCapturing = false;
@@ -43,6 +46,11 @@ namespace AnalyseAudio_PInfo.Models
             return ViewsOpen.Count > 0;
         }
 
+        /// <summary>
+		/// Register a new view to receive spectrogram data.
+		/// If there is no views registered, the spectrogram will not be generated.
+		/// </summary>
+		/// <param name="view"></param>
         public void ViewWantsSpectrogramImage(object view)
         {
             if (!ViewsOpen.Contains(view))
@@ -51,6 +59,11 @@ namespace AnalyseAudio_PInfo.Models
                 Resume();
         }
 
+        /// <summary>
+		/// Unregister a view from receiving spectrogram data.
+		/// If there are no views registered, the spectrogram will not be generated.
+		/// </summary>
+		/// <param name="view"></param>
         public void ViewClosed(object view)
         {
             ViewsOpen.Remove(view);
@@ -58,6 +71,10 @@ namespace AnalyseAudio_PInfo.Models
                 Pause();
         }
 
+        /// <summary>
+		/// (Re)create the generator with a new configuration.
+		/// </summary>
+		/// <param name="config"></param>
         public void CreateGenerator(SpectrogramConfig config)
         {
             generator = config.CreateGenerator();
@@ -89,26 +106,11 @@ namespace AnalyseAudio_PInfo.Models
         public bool IsRoll { get; set; } = false;
 
 
-        //double[] previousInputs = System.Array.Empty<double>();
-        //double[] previousOutputs = System.Array.Empty<double>();
-        //private double[] FiltrePasseHaut(double[] inputs)
-        //{
-        //    double[] outputs = new double[inputs.Length];
-
-        //    const double a = 0.5;
-        //    double Xn, Yn, Yn_1 = previousOutputs.Length > 0 ? previousOutputs[0] : 0;
-        //    for (int n = 0; n < inputs.Length; n++)
-        //    {
-        //        Xn = inputs[n];
-        //        Yn = a * Yn_1 + Xn;
-        //        outputs[n] = Yn;
-        //        Yn_1 = Yn;
-        //    }
-        //    previousInputs = inputs;
-        //    previousOutputs = outputs;
-        //    return outputs;
-        //}
-
+        /// <summary>
+		/// When AudioStream has datas, update the spectrogram image
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void CaptureStream_DataAvailable(object sender, DataReceivedEventArgs e)
         {
             if (generator.SampleRate != e.SampleRate)
@@ -135,9 +137,15 @@ namespace AnalyseAudio_PInfo.Models
             catch (Exception) { } // Recreating the generator
         }
 
-        // Stream is better (17 ms) than byte[] (400 ms)
+        /// <summary>
+		/// Save a Bitmap into a BitmapImage.
+		/// This takes ~17 ms
+		/// </summary>
         // Bitmap => Stream https://stackoverflow.com/a/27389025/12908345
         // Stream => BitmapImage https://docs.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.media.imaging.bitmapsource.setsource?view=windows-app-sdk-1.0
+		/// <param name="bitmap"></param> The bitmap source
+		/// <param name="bitmapImage"></param> The bitmap target
+		/// <returns></returns> The bitmap target
         private static BitmapImage SetBitmapImageWithBitmapAndStream(Bitmap bitmap, BitmapImage bitmapImage)
         {
             using (var memoryStream = new MemoryStream())
@@ -149,6 +157,9 @@ namespace AnalyseAudio_PInfo.Models
             return bitmapImage;
         }
 
+        /// <summary>
+		/// Update the vertical image with frequency scale
+		/// </summary>
         private void UpdateVerticalImage()
         {
             Bitmap verticalBitmap = generator.GetVerticalScale(80);

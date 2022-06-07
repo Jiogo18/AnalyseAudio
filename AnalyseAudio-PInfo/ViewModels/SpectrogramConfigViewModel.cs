@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AnalyseAudio_PInfo.ViewModels
 {
+    /// <summary>
+	/// ViewModel for the SpectrogramConfigPage.
+	/// </summary>
     public class SpectrogramConfigViewModel : ObservableRecipient
     {
         public SpectrogramConfigViewModel()
@@ -76,6 +79,9 @@ namespace AnalyseAudio_PInfo.ViewModels
         bool _autoUpdate = true;
         public bool IsAutoUpdate { get => _autoUpdate; set { if (_autoUpdate == value) return; _autoUpdate = value; OnPropertyChanged(nameof(IsAutoUpdate)); } }
 
+        /// <summary>
+		/// Update the spectrogram and spectrogram generator settings.
+		/// </summary>
         public void Update()
         {
             PropertiesChanged.ForEach(propertyName => UpdateProperty(propertyName));
@@ -114,7 +120,16 @@ namespace AnalyseAudio_PInfo.ViewModels
                     _ => true,
                 };
 
-                TimeWaitUpdate = WaitBeforeUpdating ? DateTime.Now.AddMilliseconds(500) : DateTime.Now;
+                if (!WaitBeforeUpdating)
+                {
+                    Update();
+                    TaskWaitUpdate?.Dispose();
+                    TaskWaitUpdate = null;
+                    return;
+                }
+
+                // Update later
+                TimeWaitUpdate = DateTime.Now.AddMilliseconds(500);
                 if (TaskWaitUpdate == null)
                 {
                     TaskWaitUpdate = Task.Run(async () =>
@@ -132,6 +147,10 @@ namespace AnalyseAudio_PInfo.ViewModels
             }
         }
 
+        /// <summary>
+		/// Upadte a unique property to the SpectrogramGenerator.
+		/// </summary>
+		/// <param name="propertyName"></param>
         void UpdateProperty(string propertyName)
         {
             switch (propertyName)
@@ -162,8 +181,5 @@ namespace AnalyseAudio_PInfo.ViewModels
                     break;
             }
         }
-
-        public void FreqMinChanged(object _, double freq) => FreqMin = freq;
-        public void FreqMaxChanged(object _, double freq) => FreqMax = freq;
     }
 }

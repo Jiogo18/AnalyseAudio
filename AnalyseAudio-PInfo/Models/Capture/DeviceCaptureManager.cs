@@ -6,8 +6,16 @@ using System.Windows.Forms;
 
 namespace AnalyseAudio_PInfo.Models.Capture
 {
+    /// <summary>
+	/// The manager of your Devices.
+	/// Stores Microphones, Speakers and WavesIn.
+	/// This is a bridge between CaptureViewModel and CaptureManager.
+	/// </summary>
     public class DeviceCaptureManager : NotifyBase
     {
+        /// <summary>
+		/// Automaticly update the changes made on the CapturePage
+		/// </summary>
         public bool IsAutoUpdate { get; set; } = true;
 
         public DeviceCaptureManager()
@@ -16,6 +24,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         int _type;
+        /// <summary>
+        /// 3 types availables: Microphone, Speakers and WavesIn (0, 1, 2)
+        /// </summary>
         public int SelectedType
         {
             get => _type;
@@ -69,6 +80,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
             }
         }
 
+        /// <summary>
+		/// Refresh the Microphones, Speakers and WaveInDevices
+		/// The currently selected of each category may not change
+		/// </summary>
         public void UpdateDevices()
         {
             bool wasAutoUpdate = IsAutoUpdate;
@@ -95,7 +110,13 @@ namespace AnalyseAudio_PInfo.Models.Capture
             }
         }
 
+        /// <summary>
         // Select the previous device, or the default, or the first
+		/// </summary>
+		/// <typeparam name="T"></typeparam> The type of devices
+		/// <param name="Devices"></param> Available devices
+		/// <param name="previous"></param> The device selected before
+		/// <returns></returns>/
         static T SelectDefaultDevice<T>(List<T> Devices, T previous) where T : DeviceCapture
         {
             T newSelected = null;
@@ -110,6 +131,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
             return newSelected;
         }
 
+        /// <summary>
+        /// Refresh the selection with the current device used by CaptureManager
+        /// </summary>
         public void RestoreSelection()
         {
             DeviceCapture SelectedDevice = Manager.Capture.SelectedDevice;
@@ -140,6 +164,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
             }
         }
 
+        /// <summary>
+		/// Event ProperyChanged and Apply changes
+		/// </summary>
+		/// <param name="propertyName"></param>
         new void OnPropertyChanged(string propertyName)
         {
             base.OnPropertyChanged(propertyName);
@@ -147,6 +175,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
                 ApplyChanges();
         }
 
+        /// <summary>
+		/// Update CaptureManager with this configuration (Save)
+		/// </summary>
         public void ApplyChanges()
         {
             DeviceCapture SelectedDevice = SelectedType switch
@@ -175,6 +206,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
             }
         }
 
+        /// <summary>
+		/// Alert the user and register it in the logs
+		/// </summary>
+		/// <param name="text"></param> The message
         static void SendWarning(string text)
         {
             Logger.Warn(text);
