@@ -1,4 +1,4 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
+﻿using AnalyseAudio_PInfo.Models.Common;
 using NAudio.Wave;
 using System;
 
@@ -16,7 +16,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         public abstract bool IsDefault { get; }
         public abstract bool IsRecording { get; }
         public abstract WaveFormat WaveFormat { get; set; }
-        
+
         public event EventHandler OnStart;
         public event EventHandler<StoppedReason> OnStop;
 

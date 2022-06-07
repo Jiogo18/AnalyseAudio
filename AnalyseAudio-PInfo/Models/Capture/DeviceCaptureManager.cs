@@ -1,5 +1,4 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
-using AnalyseAudio_PInfo.Models.Common;
+﻿using AnalyseAudio_PInfo.Models.Common;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
@@ -112,11 +111,11 @@ namespace AnalyseAudio_PInfo.Models.Capture
 
         /// <summary>
         // Select the previous device, or the default, or the first
-		/// </summary>
-		/// <typeparam name="T"></typeparam> The type of devices
-		/// <param name="Devices"></param> Available devices
-		/// <param name="previous"></param> The device selected before
-		/// <returns></returns>/
+        /// </summary>
+        /// <typeparam name="T"></typeparam> The type of devices
+        /// <param name="Devices"></param> Available devices
+        /// <param name="previous"></param> The device selected before
+        /// <returns></returns>/
         static T SelectDefaultDevice<T>(List<T> Devices, T previous) where T : DeviceCapture
         {
             T newSelected = null;

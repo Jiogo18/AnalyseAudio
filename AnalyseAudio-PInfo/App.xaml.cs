@@ -1,14 +1,13 @@
 ﻿using AnalyseAudio_PInfo.Activation;
 using AnalyseAudio_PInfo.Contracts.Services;
 using AnalyseAudio_PInfo.Core.Contracts.Services;
-using AnalyseAudio_PInfo.Core.Models;
 using AnalyseAudio_PInfo.Core.Services;
 using AnalyseAudio_PInfo.Helpers;
 using AnalyseAudio_PInfo.Models;
+using AnalyseAudio_PInfo.Models.Common;
 using AnalyseAudio_PInfo.Services;
 using AnalyseAudio_PInfo.ViewModels;
 using AnalyseAudio_PInfo.Views;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;

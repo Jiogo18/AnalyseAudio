@@ -1,4 +1,4 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
+﻿using AnalyseAudio_PInfo.Models.Common;
 using AnalyseAudio_PInfo.ViewModels;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Controls;

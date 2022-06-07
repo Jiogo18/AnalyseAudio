@@ -1,4 +1,4 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
+﻿using AnalyseAudio_PInfo.Models.Common;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using System;
@@ -16,7 +16,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         protected WasapiCapture Recorder { get; private set; }
         internal AudioStream Stream { get; set; }
 
-        internal DeviceWasapi(MMDevice wasapiDevice, int index)
+        internal DeviceWasapi(MMDevice wasapiDevice)
         {
             wasapi = wasapiDevice;
             Name = wasapi.FriendlyName;

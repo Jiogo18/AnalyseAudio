@@ -1,4 +1,4 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
+﻿using AnalyseAudio_PInfo.Models.Common;
 using Microsoft.UI.Xaml.Controls;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
@@ -11,7 +11,7 @@ namespace AnalyseAudio_PInfo.Views.Keyboard
     {
         readonly IDictionary<int, WaveOutEvent> wavesOut = new Dictionary<int, WaveOutEvent>();
         string[] WavesType { get; } = Enum.GetNames<SignalGeneratorType>();
-        string WaveType { get; set; } = Enum.GetName<SignalGeneratorType>(SignalGeneratorType.Sin);
+        string WaveType { get; set; } = Enum.GetName(SignalGeneratorType.Sin);
 
         public KeyboardElement()
         {

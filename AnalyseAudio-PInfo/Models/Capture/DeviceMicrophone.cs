@@ -8,7 +8,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
 	/// </summary>
     public class DeviceMicrophone : DeviceWasapi
     {
-        private DeviceMicrophone(MMDevice wasapi, int index, DefaultWasapi defaultMicrophones) : base(wasapi, index)
+        private DeviceMicrophone(MMDevice wasapi, DefaultWasapi defaultMicrophones) : base(wasapi)
         {
             IsDefaultForCommunication = defaultMicrophones.Communication?.ID == wasapi.ID;
             IsDefaultForConsole = defaultMicrophones.Console?.ID == wasapi.ID;
@@ -29,7 +29,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
                 );
             List<DeviceMicrophone> devices = new();
             foreach (var wasapi in enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active | DeviceState.Disabled | DeviceState.Unplugged))
-                devices.Add(new DeviceMicrophone(wasapi, devices.Count, defaultMicrophones));
+                devices.Add(new DeviceMicrophone(wasapi, defaultMicrophones));
             return devices;
         }
     }

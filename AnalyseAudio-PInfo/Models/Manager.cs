@@ -1,4 +1,5 @@
 ﻿using AnalyseAudio_PInfo.Models.Capture;
+using AnalyseAudio_PInfo.Models.Spectro;
 
 namespace AnalyseAudio_PInfo.Models
 {

@@ -1,4 +1,4 @@
-﻿namespace AnalyseAudio_PInfo.Models
+﻿namespace AnalyseAudio_PInfo.Models.Spectro
 {
     /// <summary>
 	/// Configuration for a Spectrogram.SpectrogramGenerator.

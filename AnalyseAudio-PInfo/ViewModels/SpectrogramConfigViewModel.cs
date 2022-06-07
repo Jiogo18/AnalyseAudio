@@ -1,4 +1,5 @@
 ﻿using AnalyseAudio_PInfo.Models;
+using AnalyseAudio_PInfo.Models.Spectro;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;

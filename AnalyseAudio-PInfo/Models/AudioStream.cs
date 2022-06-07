@@ -7,7 +7,7 @@ namespace AnalyseAudio_PInfo.Models
 	/// </summary>
     public class AudioStream
     {
-        public AudioStream() {}
+        public AudioStream() { }
 
         public void PushData(byte[] data, int length, int sampleRate)
         {

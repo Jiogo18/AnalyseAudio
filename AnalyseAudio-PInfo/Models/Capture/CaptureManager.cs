@@ -1,5 +1,4 @@
-﻿using AnalyseAudio_PInfo.Core.Models;
-using AnalyseAudio_PInfo.Models.Common;
+﻿using AnalyseAudio_PInfo.Models.Common;
 
 namespace AnalyseAudio_PInfo.Models.Capture
 {
@@ -98,7 +97,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
         /// </summary>
         public readonly AudioStream CaptureStream = new();
 
-        public CaptureManager(){}
+        public CaptureManager() { }
 
         /// <summary>
         /// Start the recording with the main device

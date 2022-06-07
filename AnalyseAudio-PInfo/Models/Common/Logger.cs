@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AnalyseAudio_PInfo.Core.Models
+namespace AnalyseAudio_PInfo.Models.Common
 {
     public class Logger
     {

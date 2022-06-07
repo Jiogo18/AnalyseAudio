@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace AnalyseAudio_PInfo.Models
+namespace AnalyseAudio_PInfo.Models.Spectro
 {
     /// <summary>
 	/// An interface for Spectrogram.SpectrogramGenerator
@@ -138,14 +138,14 @@ namespace AnalyseAudio_PInfo.Models
         }
 
         /// <summary>
-		/// Save a Bitmap into a BitmapImage.
-		/// This takes ~17 ms
-		/// </summary>
+        /// Save a Bitmap into a BitmapImage.
+        /// This takes ~17 ms
+        /// </summary>
         // Bitmap => Stream https://stackoverflow.com/a/27389025/12908345
         // Stream => BitmapImage https://docs.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.media.imaging.bitmapsource.setsource?view=windows-app-sdk-1.0
-		/// <param name="bitmap"></param> The bitmap source
-		/// <param name="bitmapImage"></param> The bitmap target
-		/// <returns></returns> The bitmap target
+        /// <param name="bitmap"></param> The bitmap source
+        /// <param name="bitmapImage"></param> The bitmap target
+        /// <returns></returns> The bitmap target
         private static BitmapImage SetBitmapImageWithBitmapAndStream(Bitmap bitmap, BitmapImage bitmapImage)
         {
             using (var memoryStream = new MemoryStream())
