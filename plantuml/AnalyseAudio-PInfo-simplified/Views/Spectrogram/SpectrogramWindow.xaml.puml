@@ -1,0 +1,8 @@
+@startuml
+class SpectrogramWindow {
+    + SpectrogramWindow()
+    + {static} Open() : void
+    + <<new>> {static} Close() : void
+}
+SpectrogramWindow --> SpectrogramElement
+@enduml

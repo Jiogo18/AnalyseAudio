@@ -1,0 +1,31 @@
+@startuml
+
+' Made with 'CSharp to PlantUML' https://marketplace.visualstudio.com/items?itemName=pierre3.csharp-to-plantuml
+
+!include .\\AnalyseAudio-PInfo-simplified\App.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\AudioStream.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Manager.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\CaptureManager.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceCapture.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceCaptureManager.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceWaveIn.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceMicrophone.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceSpeaker.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceWasapi.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Common\Logger.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Spectro\SpectrogramGenerator.puml
+!include .\\AnalyseAudio-PInfo-simplified\ViewModels\CaptureViewModel.puml
+CaptureViewModel -----> DeviceCaptureManager
+!include .\\AnalyseAudio-PInfo-simplified\ViewModels\SpectrogramConfigViewModel.puml
+!include .\\AnalyseAudio-PInfo-simplified\ViewModels\SpectrogramViewModel.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\CapturePage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\PianoPage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\ConsolePage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\SettingsPage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\SpectrogramConfigPage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Piano\KeyboardElement.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Piano\KeyboardNote.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Spectrogram\SpectrogramElement.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Spectrogram\SpectrogramWindow.xaml.puml
+
+@enduml

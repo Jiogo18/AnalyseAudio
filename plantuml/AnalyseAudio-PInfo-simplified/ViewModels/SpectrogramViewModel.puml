@@ -1,0 +1,7 @@
+@startuml
+class SpectrogramViewModel {
+	SpectrogramImage : BitmapImage
+	SpectrogramVerticalImage : BitmapImage
+}
+SpectrogramViewModel --> SpectrogramGenerator
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class SpectrogramConfigPage {
+}
+Page <|-- SpectrogramConfigPage
+SpectrogramConfigPage ---> SpectrogramConfigViewModel
+SpectrogramConfigPage ---> SpectrogramElement
+@enduml

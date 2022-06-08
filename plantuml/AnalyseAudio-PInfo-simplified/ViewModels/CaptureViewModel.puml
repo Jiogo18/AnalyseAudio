@@ -1,0 +1,7 @@
+@startuml
+class CaptureViewModel {
+    + IsAutoUpdate : bool
+    + StartStop() : void
+    + Update() : void
+}
+@enduml

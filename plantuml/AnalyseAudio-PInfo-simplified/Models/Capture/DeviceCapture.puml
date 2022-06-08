@@ -1,0 +1,9 @@
+@startuml
+abstract class DeviceCapture {
+    + {abstract} DisplayName : string
+    + {abstract} IsDefault : bool
+    + {abstract} Start(AudioStream, WaveFormat) : void
+    + {abstract} Stop() : void
+}
+DeviceCapture -> AudioStream
+@enduml

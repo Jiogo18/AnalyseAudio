@@ -1,0 +1,10 @@
+@startuml
+class DeviceCaptureManager {
+    + IsAutoUpdate : bool  = true
+    + UpdateDevices() : void
+    + ApplyChanges() : void
+}
+
+DeviceCaptureManager --> DeviceCapture
+DeviceCaptureManager -> CaptureManager
+@enduml

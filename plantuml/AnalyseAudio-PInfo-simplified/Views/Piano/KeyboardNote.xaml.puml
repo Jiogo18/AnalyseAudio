@@ -1,0 +1,8 @@
+@startuml
+class KeyboardNote {
+    + Note : int
+    + Pressed : bool
+    + KeyboardNote()
+    + {static} GetFrequencyFromNote(int) : double
+}
+@enduml

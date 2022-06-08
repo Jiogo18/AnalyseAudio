@@ -1,0 +1,8 @@
+@startuml
+class SpectrogramConfigViewModel {
+    + {static} OpenSpectrogram() : void
+    + IsAutoUpdate : bool
+    + Update() : void
+}
+SpectrogramConfigViewModel ----> SpectrogramGenerator
+@enduml

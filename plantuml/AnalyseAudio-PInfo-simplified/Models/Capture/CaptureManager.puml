@@ -1,0 +1,9 @@
+@startuml
+class CaptureManager {
+    + CaptureManager()
+    + Start() : void
+    + Stop() : void
+    + Restart() : void
+}
+CaptureManager --> DeviceCapture
+@enduml

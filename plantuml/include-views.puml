@@ -1,0 +1,11 @@
+@startuml
+
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\CapturePage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\ConsolePage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\SpectrogramConfigPage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\SettingsPage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Pages\PianoPage.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Piano\KeyboardElement.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Piano\KeyboardNote.xaml.puml
+
+@enduml

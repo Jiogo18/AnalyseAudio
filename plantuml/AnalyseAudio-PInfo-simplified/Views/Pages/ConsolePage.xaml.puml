@@ -1,0 +1,6 @@
+@startuml
+class ConsolePage {
+}
+Page <|-- ConsolePage
+ConsolePage --> Logger
+@enduml

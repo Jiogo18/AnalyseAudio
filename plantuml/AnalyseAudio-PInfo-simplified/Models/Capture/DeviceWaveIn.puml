@@ -1,0 +1,7 @@
+@startuml
+class DeviceWaveIn {
+    DeviceIndex : int
+    Recorder : WaveInEvent
+}
+DeviceCapture <|-- DeviceWaveIn
+@enduml

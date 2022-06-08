@@ -1,0 +1,5 @@
+@startuml
+class DeviceSpeaker {
+}
+DeviceWasapi <|-- DeviceSpeaker
+@enduml

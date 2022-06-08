@@ -1,0 +1,8 @@
+@startuml
+class KeyboardElement {
+    WaveType : string
+    Play(note:int, frequency:double) : void
+    End(note:int, frequency:double) : void
+}
+KeyboardElement --> KeyboardNote
+@enduml

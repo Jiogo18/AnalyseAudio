@@ -1,0 +1,10 @@
+@startuml
+class Manager {
+    + {static} Initialize() : void
+    + {static} Close() : void
+}
+Manager -> "Instance" Manager
+Manager --> CaptureManager
+Manager --> DeviceCaptureManager
+Manager ---> SpectrogramGenerator
+@enduml

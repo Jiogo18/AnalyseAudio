@@ -1,0 +1,6 @@
+@startuml
+class CapturePage {
+}
+Page <|-- CapturePage
+CapturePage --> CaptureViewModel
+@enduml

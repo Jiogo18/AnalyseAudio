@@ -1,0 +1,8 @@
+@startuml
+class Logger {
+    + Logger()
+    + {static} WriteLine(message:string) : void
+    + Clear() : void
+}
+Logger --> "Current" Logger
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class SpectrogramGenerator {
+    + SpectrogramGenerator(stream:AudioStream)
+    Resume() : void
+    Pause() : void
+}
+AudioStream <- SpectrogramGenerator
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class App {
+}
+App --> Manager
+@enduml

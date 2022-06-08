@@ -1,0 +1,6 @@
+@startuml
+class PianoPage {
+}
+Page <|-- PianoPage
+PianoPage --> KeyboardElement
+@enduml

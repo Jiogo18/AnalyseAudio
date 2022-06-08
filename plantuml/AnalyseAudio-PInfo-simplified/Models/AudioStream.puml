@@ -1,0 +1,6 @@
+@startuml
+class AudioStream {
+    + PushData(data, length, sampleRate)
+    +  <<event>> DataAvailable
+}
+@enduml

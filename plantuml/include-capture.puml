@@ -1,0 +1,13 @@
+@startuml
+!include .\\AnalyseAudio-PInfo-simplified\Models\AudioStream.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\CaptureManager.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceCapture.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceCaptureManager.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceMicrophone.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceSpeaker.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceWasapi.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Capture\DeviceWaveIn.puml
+!include .\\AnalyseAudio-PInfo-simplified\ViewModels\CaptureViewModel.puml
+CaptureViewModel -> DeviceCaptureManager
+
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+abstract class DeviceWasapi {
+	Recorder : WasapiCapture
+}
+DeviceCapture <|-- DeviceWasapi
+@enduml

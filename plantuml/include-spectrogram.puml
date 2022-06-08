@@ -1,0 +1,10 @@
+@startuml
+
+!include .\\AnalyseAudio-PInfo-simplified\Models\AudioStream.puml
+!include .\\AnalyseAudio-PInfo-simplified\Models\Spectro\SpectrogramGenerator.puml
+!include .\\AnalyseAudio-PInfo-simplified\ViewModels\SpectrogramConfigViewModel.puml
+!include .\\AnalyseAudio-PInfo-simplified\ViewModels\SpectrogramViewModel.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Spectrogram\SpectrogramWindow.xaml.puml
+!include .\\AnalyseAudio-PInfo-simplified\Views\Spectrogram\SpectrogramElement.xaml.puml
+
+@enduml
