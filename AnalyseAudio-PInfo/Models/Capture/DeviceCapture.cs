@@ -5,8 +5,8 @@ using System;
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     /// <summary>
-	/// An abstract Device to record audio
-	/// </summary>
+    /// An abstract Device to record audio
+    /// </summary>
     public abstract class DeviceCapture
     {
         protected DeviceCapture() { }
@@ -21,18 +21,18 @@ namespace AnalyseAudio_PInfo.Models.Capture
         public event EventHandler<StoppedReason> OnStop;
 
         /// <summary>
-		/// Start the recording with this device
-		/// </summary>
-		/// <param name="stream"></param> The stream where you push the datas
-		/// <param name="waveFormat"></param> The format used for the stream
+        /// Start the recording with this device
+        /// </summary>
+        /// <param name="stream"></param> The stream where you push the datas
+        /// <param name="waveFormat"></param> The format used for the stream
         public abstract void Start(AudioStream stream, WaveFormat waveFormat);
         /// <summary>
-		/// Stop the recording of this device
-		/// </summary>
+        /// Stop the recording of this device
+        /// </summary>
         public abstract void Stop();
         /// <summary>
-		/// End the recording of this device, without triggering 'OnStop' event
-		/// </summary>
+        /// End the recording of this device, without triggering 'OnStop' event
+        /// </summary>
         protected abstract void StopInternal();
 
         protected void Started()
@@ -57,11 +57,11 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Reason used when the recording stops
-		/// Error: Because an error occured
-		/// External: Because Stop() was trigerred
-		/// Unknown: Unknown exception occured
-		/// </summary>
+        /// Reason used when the recording stops
+        /// Error: Because an error occured
+        /// External: Because Stop() was trigerred
+        /// Unknown: Unknown exception occured
+        /// </summary>
         public enum StoppedReason
         {
             Error,

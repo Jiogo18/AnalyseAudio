@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     /// <summary>
-	/// A Microphone using WASAPI
-	/// </summary>
+    /// A Microphone using WASAPI
+    /// </summary>
     public class DeviceMicrophone : DeviceWasapi
     {
         private DeviceMicrophone(MMDevice wasapi, DefaultWasapi defaultMicrophones) : base(wasapi)

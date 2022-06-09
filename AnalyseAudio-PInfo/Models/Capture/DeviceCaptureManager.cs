@@ -6,15 +6,15 @@ using System.Windows.Forms;
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     /// <summary>
-	/// The manager of your Devices.
-	/// Stores Microphones, Speakers and WavesIn.
-	/// This is a bridge between CaptureViewModel and CaptureManager.
-	/// </summary>
+    /// The manager of your Devices.
+    /// Stores Microphones, Speakers and WavesIn.
+    /// This is a bridge between CaptureViewModel and CaptureManager.
+    /// </summary>
     public class DeviceCaptureManager : NotifyBase
     {
         /// <summary>
-		/// Automaticly update the changes made on the CapturePage
-		/// </summary>
+        /// Automaticly update the changes made on the CapturePage
+        /// </summary>
         public bool IsAutoUpdate { get; set; } = true;
 
         public DeviceCaptureManager()
@@ -80,9 +80,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Refresh the Microphones, Speakers and WaveInDevices
-		/// The currently selected of each category may not change
-		/// </summary>
+        /// Refresh the Microphones, Speakers and WaveInDevices
+        /// The currently selected of each category may not change
+        /// </summary>
         public void UpdateDevices()
         {
             bool wasAutoUpdate = IsAutoUpdate;
@@ -164,9 +164,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Event ProperyChanged and Apply changes
-		/// </summary>
-		/// <param name="propertyName"></param>
+        /// Event ProperyChanged and Apply changes
+        /// </summary>
+        /// <param name="propertyName"></param>
         new void OnPropertyChanged(string propertyName)
         {
             base.OnPropertyChanged(propertyName);
@@ -175,8 +175,8 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Update CaptureManager with this configuration (Save)
-		/// </summary>
+        /// Update CaptureManager with this configuration (Save)
+        /// </summary>
         public void ApplyChanges()
         {
             DeviceCapture SelectedDevice = SelectedType switch
@@ -206,9 +206,9 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Alert the user and register it in the logs
-		/// </summary>
-		/// <param name="text"></param> The message
+        /// Alert the user and register it in the logs
+        /// </summary>
+        /// <param name="text"></param> The message
         static void SendWarning(string text)
         {
             Logger.Warn(text);

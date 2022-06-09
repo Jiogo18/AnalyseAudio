@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace AnalyseAudio_PInfo.ViewModels
 {
     /// <summary>
-	/// ViewModel for the SpectrogramConfigPage.
-	/// </summary>
+    /// ViewModel for the SpectrogramConfigPage.
+    /// </summary>
     public class SpectrogramConfigViewModel : ObservableRecipient
     {
         public SpectrogramConfigViewModel()
@@ -81,8 +81,8 @@ namespace AnalyseAudio_PInfo.ViewModels
         public bool IsAutoUpdate { get => _autoUpdate; set { if (_autoUpdate == value) return; _autoUpdate = value; OnPropertyChanged(nameof(IsAutoUpdate)); } }
 
         /// <summary>
-		/// Update the spectrogram and spectrogram generator settings.
-		/// </summary>
+        /// Update the spectrogram and spectrogram generator settings.
+        /// </summary>
         public void Update()
         {
             PropertiesChanged.ForEach(propertyName => UpdateProperty(propertyName));
@@ -149,9 +149,9 @@ namespace AnalyseAudio_PInfo.ViewModels
         }
 
         /// <summary>
-		/// Upadte a unique property to the SpectrogramGenerator.
-		/// </summary>
-		/// <param name="propertyName"></param>
+        /// Upadte a unique property to the SpectrogramGenerator.
+        /// </summary>
+        /// <param name="propertyName"></param>
         void UpdateProperty(string propertyName)
         {
             switch (propertyName)

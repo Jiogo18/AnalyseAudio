@@ -4,15 +4,15 @@ using AnalyseAudio_PInfo.Models.Spectro;
 namespace AnalyseAudio_PInfo.Models
 {
     /// <summary>
-	/// The main object of the application.
-	/// This contains the Capture and the Analyze managers
-	/// </summary>
+    /// The main object of the application.
+    /// This contains the Capture and the Analyze managers
+    /// </summary>
     public class Manager
     {
         static Manager instance;
         /// <summary>
-		/// Get the current Manager or create a new one
-		/// </summary>
+        /// Get the current Manager or create a new one
+        /// </summary>
         public static Manager Instance { get { if (instance == null) { instance = new Manager(); instance.Load(); } return instance; } }
 
         CaptureManager captureManager;
@@ -27,16 +27,16 @@ namespace AnalyseAudio_PInfo.Models
         private Manager() { }
 
         /// <summary>
-		/// Create the manager
-		/// </summary>
+        /// Create the manager
+        /// </summary>
         public static void Initialize()
         {
             _ = Instance;
         }
 
         /// <summary>
-		/// Create the manager, once Instance is set
-		/// </summary>
+        /// Create the manager, once Instance is set
+        /// </summary>
         private void Load()
         {
             captureManager = new CaptureManager();
@@ -45,8 +45,8 @@ namespace AnalyseAudio_PInfo.Models
         }
 
         /// <summary>
-		/// Stop the application
-		/// </summary>
+        /// Stop the application
+        /// </summary>
         public static void Close()
         {
             if (instance == null) return;

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     /// <summary>
-	/// A Type of device less stable than WASAPI and only for Microphones.
-	/// It still performs well.
-	/// </summary>
+    /// A Type of device less stable than WASAPI and only for Microphones.
+    /// It still performs well.
+    /// </summary>
     public class DeviceWaveIn : DeviceCapture
     {
         readonly int DeviceIndex;

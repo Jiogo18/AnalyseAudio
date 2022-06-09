@@ -9,8 +9,8 @@ using System.IO;
 namespace AnalyseAudio_PInfo.Models.Spectro
 {
     /// <summary>
-	/// An interface for Spectrogram.SpectrogramGenerator
-	/// </summary>
+    /// An interface for Spectrogram.SpectrogramGenerator
+    /// </summary>
     public class SpectrogramGenerator : NotifyBase
     {
         bool IsCapturing = false;
@@ -47,10 +47,10 @@ namespace AnalyseAudio_PInfo.Models.Spectro
         }
 
         /// <summary>
-		/// Register a new view to receive spectrogram data.
-		/// If there is no views registered, the spectrogram will not be generated.
-		/// </summary>
-		/// <param name="view"></param>
+        /// Register a new view to receive spectrogram data.
+        /// If there is no views registered, the spectrogram will not be generated.
+        /// </summary>
+        /// <param name="view"></param>
         public void ViewWantsSpectrogramImage(object view)
         {
             if (!ViewsOpen.Contains(view))
@@ -60,10 +60,10 @@ namespace AnalyseAudio_PInfo.Models.Spectro
         }
 
         /// <summary>
-		/// Unregister a view from receiving spectrogram data.
-		/// If there are no views registered, the spectrogram will not be generated.
-		/// </summary>
-		/// <param name="view"></param>
+        /// Unregister a view from receiving spectrogram data.
+        /// If there are no views registered, the spectrogram will not be generated.
+        /// </summary>
+        /// <param name="view"></param>
         public void ViewClosed(object view)
         {
             ViewsOpen.Remove(view);
@@ -72,9 +72,9 @@ namespace AnalyseAudio_PInfo.Models.Spectro
         }
 
         /// <summary>
-		/// (Re)create the generator with a new configuration.
-		/// </summary>
-		/// <param name="config"></param>
+        /// (Re)create the generator with a new configuration.
+        /// </summary>
+        /// <param name="config"></param>
         public void CreateGenerator(SpectrogramConfig config)
         {
             generator = config.CreateGenerator();
@@ -107,10 +107,10 @@ namespace AnalyseAudio_PInfo.Models.Spectro
 
 
         /// <summary>
-		/// When AudioStream has datas, update the spectrogram image
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+        /// When AudioStream has datas, update the spectrogram image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CaptureStream_DataAvailable(object sender, DataReceivedEventArgs e)
         {
             if (generator.SampleRate != e.SampleRate)
@@ -158,8 +158,8 @@ namespace AnalyseAudio_PInfo.Models.Spectro
         }
 
         /// <summary>
-		/// Update the vertical image with frequency scale
-		/// </summary>
+        /// Update the vertical image with frequency scale
+        /// </summary>
         private void UpdateVerticalImage()
         {
             Bitmap verticalBitmap = generator.GetVerticalScale(80);

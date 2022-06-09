@@ -5,8 +5,8 @@ using System;
 namespace AnalyseAudio_PInfo.ViewModels
 {
     /// <summary>
-	/// Converter from CaptureStatus to Button Text
-	/// </summary>
+    /// Converter from CaptureStatus to Button Text
+    /// </summary>
     internal class StateButtonStartStopConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string culture)

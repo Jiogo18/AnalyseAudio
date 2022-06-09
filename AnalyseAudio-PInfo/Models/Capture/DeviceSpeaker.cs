@@ -5,8 +5,8 @@ using System.Collections.Generic;
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     /// <summary>
-	/// A Speaker using WASAPI. This allows you to record the computer's sound
-	/// </summary>
+    /// A Speaker using WASAPI. This allows you to record the computer's sound
+    /// </summary>
     public class DeviceSpeaker : DeviceWasapi
     {
         private DeviceSpeaker(MMDevice wasapi, DefaultWasapi defaultSpeakers) : base(wasapi)
@@ -36,11 +36,11 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Start the recording of the speaker.
-		/// </summary>
-		/// A Speaker requires a WasapiLoopbackCapture, which is alomost the same as a WasapiCapture
-		/// <param name="stream"></param>
-		/// <param name="waveFormat"></param>
+        /// Start the recording of the speaker.
+        /// </summary>
+        /// A Speaker requires a WasapiLoopbackCapture, which is alomost the same as a WasapiCapture
+        /// <param name="stream"></param>
+        /// <param name="waveFormat"></param>
         public override void Start(AudioStream stream, WaveFormat waveFormat)
         {
             if (Recorder != null) return;

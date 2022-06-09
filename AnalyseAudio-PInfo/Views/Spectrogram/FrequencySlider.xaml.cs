@@ -7,10 +7,10 @@ using System.Runtime.CompilerServices;
 namespace AnalyseAudio_PInfo.Views
 {
     /// <summary>
-	/// A Slider that can be used to change the frequency of the spectrogram.
-	/// The slider is logarithmic-like so moving of X pixels will always multiply the frequency with a factor Y.
-	/// The slider is centered at 440 Hz.
-	/// </summary>
+    /// A Slider that can be used to change the frequency of the spectrogram.
+    /// The slider is logarithmic-like so moving of X pixels will always multiply the frequency with a factor Y.
+    /// The slider is centered at 440 Hz.
+    /// </summary>
     public sealed partial class FrequencySlider : Grid, INotifyPropertyChanged
     {
         double _minimum = 1;

@@ -3,8 +3,8 @@
 namespace AnalyseAudio_PInfo.Models
 {
     /// <summary>
-	/// A Bridge between a DeviceCapture and the SpectrogramGenerator
-	/// </summary>
+    /// A Bridge between a DeviceCapture and the SpectrogramGenerator
+    /// </summary>
     public class AudioStream
     {
         public AudioStream() { }

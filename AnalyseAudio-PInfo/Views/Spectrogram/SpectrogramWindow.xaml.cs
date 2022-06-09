@@ -20,8 +20,8 @@ namespace AnalyseAudio_PInfo
         static SpectrogramWindow _instance;
         static SpectrogramWindow Instance { get { if (_instance == null) _instance = new SpectrogramWindow(); return _instance; } }
         /// <summary>
-		/// Open a new window or focus an existing one
-		/// </summary>
+        /// Open a new window or focus an existing one
+        /// </summary>
         public static void Open()
         {
             _ = Instance;
@@ -29,8 +29,8 @@ namespace AnalyseAudio_PInfo
         }
 
         /// <summary>
-		/// Close the window if it is open
-		/// </summary>
+        /// Close the window if it is open
+        /// </summary>
         public new static void Close()
         {
             if (_instance == null) return;

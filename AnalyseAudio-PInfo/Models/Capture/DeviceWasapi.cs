@@ -7,9 +7,9 @@ using System.Windows.Forms;
 namespace AnalyseAudio_PInfo.Models.Capture
 {
     /// <summary>
-	/// WASAPI is a category of devices/connections.
-	/// It allows computer's recording (DeviceSpeaker) and is pretty stable.
-	/// </summary>
+    /// WASAPI is a category of devices/connections.
+    /// It allows computer's recording (DeviceSpeaker) and is pretty stable.
+    /// </summary>
     public abstract class DeviceWasapi : DeviceCapture
     {
         protected readonly MMDevice wasapi;
@@ -77,11 +77,11 @@ namespace AnalyseAudio_PInfo.Models.Capture
         }
 
         /// <summary>
-		/// Start the record for all Wasapi devices
-		/// </summary>
-		/// <param name="stream"></param>
-		/// <param name="recorder"></param>
-		/// <param name="waveFormat"></param>
+        /// Start the record for all Wasapi devices
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="recorder"></param>
+        /// <param name="waveFormat"></param>
         protected void Start(AudioStream stream, WasapiCapture recorder, WaveFormat waveFormat)
         {
             if (Recorder != null) return;
@@ -172,8 +172,8 @@ namespace AnalyseAudio_PInfo.Models.Capture
     }
 
     /// <summary>
-	/// 3 devices (different or not) used by DeviceMicrophone and DeviceSpeaker constructors.
-	/// </summary>
+    /// 3 devices (different or not) used by DeviceMicrophone and DeviceSpeaker constructors.
+    /// </summary>
     struct DefaultWasapi
     {
         internal readonly MMDevice Communication;
