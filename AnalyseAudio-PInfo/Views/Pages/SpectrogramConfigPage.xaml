@@ -78,7 +78,7 @@
                 <views:SpectrogramElement />
                 <Button HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="btnOpenSpectrogram" Margin="10,10,10,10" Click="{x:Bind Path=viewmodels:SpectrogramConfigViewModel.OpenSpectrogram}">
                     <Button.Content>
-                        <SymbolIcon Symbol="NewWindow" />
+                        <SymbolIcon Symbol="FullScreen" />
                     </Button.Content>
                     <ToolTipService.ToolTip>
                         <ToolTip x:Uid="OpenSpectrogramWindow" Placement="Bottom" />
