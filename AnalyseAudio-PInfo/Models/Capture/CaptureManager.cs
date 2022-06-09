@@ -104,9 +104,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
         /// </summary>
         public void Start()
         {
-            Logger.WriteLine($"Start recording {SelectedDevice?.DisplayName}");
+            if (State != CaptureStatus.Stopped || SelectedDevice == null) return;
             State = CaptureStatus.Started;
-            SelectedDevice?.Start(CaptureStream, WaveFormat);
+            Logger.WriteLine($"Start recording {SelectedDevice.DisplayName}");
+            SelectedDevice.Start(CaptureStream, WaveFormat);
         }
 
         /// <summary>
@@ -114,9 +115,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
         /// </summary>
         public void Stop()
         {
-            Logger.WriteLine($"Stop recording {SelectedDevice?.DisplayName}");
             State = CaptureStatus.Stopped;
-            SelectedDevice?.Stop();
+            if (State == CaptureStatus.Stopped || SelectedDevice == null) return;
+            Logger.WriteLine($"Stop recording {SelectedDevice.DisplayName}");
+            SelectedDevice.Stop();
         }
 
         /// <summary>

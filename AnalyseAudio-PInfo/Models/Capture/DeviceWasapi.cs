@@ -107,9 +107,7 @@ namespace AnalyseAudio_PInfo.Models.Capture
                     "\nSource:\n   " + e.Source +
                     "\nStack:\n" + e.StackTrace);
                 MessageBox.Show($"Error while recording the device {DisplayName}: {e.Message} (from {e.Source})", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                recorder.StopRecording();
-                recorder.Dispose();
-                recorder = null;
+                StopInternal();
                 Stopped(StoppedReason.Error);
             }
         }
@@ -146,7 +144,10 @@ namespace AnalyseAudio_PInfo.Models.Capture
                     Restart = false;
                     try
                     {
-                        Recorder.StartRecording();
+                        AudioStream stream = Stream;
+                        WaveFormat format = Recorder.WaveFormat;
+                        StopInternal();
+                        Start(stream, format);
                     }
                     catch (Exception e2)
                     {
