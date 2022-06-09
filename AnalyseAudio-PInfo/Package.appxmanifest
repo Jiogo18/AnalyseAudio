@@ -10,7 +10,7 @@
   <Identity
     Name="CDDCEF00-047A-45A9-A69B-A68CB56EC692"
     Publisher="CN=Jerome"
-    Version="1.0.0.0" />
+    Version="1.0.3.0" />
 
   <Properties>
     <DisplayName>AnalyseAudio-PInfo</DisplayName>
