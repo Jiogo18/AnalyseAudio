@@ -1,14 +1,14 @@
 # AnalyseAudio
 
-Projet Informatique POL4 : Affichage en continu du spectre d'un contenu audio (microphone, application, fichier)
+Projet Informatique S4 : Affichage en direct du spectre d'un contenu audio (microphone, application)
 
-L'application utilise les mêmes appareils disponibles sur Audacity en mode WASAPI.
+L'application utilise les mÃªmes appareils disponibles sur Audacity en mode WASAPI.
 
-L'application est composée de 5 pages :
-- Entrée : Sélectionner une entrée audio (microphone, application, fichier)
+L'application est composÃ©e de 5 pages :
+- EntrÃ©e : SÃ©lectionner une entrÃ©e audio (microphone, application, fichier)
 - Spectrogramme : Afficher et configurer le spectrogramme en direct
-- Piano : Créer du son qui sera ajouté au spectrogrammme
-- Console : Débogage de l'application
-- Paramètres : Paramètres basiques de l'application
+- Piano : CrÃ©er du son qui sera ajoutÃ© au spectrogrammme
+- Console : DÃ©bogage de l'application
+- ParamÃ¨tres : ParamÃ¨tres basiques de l'application
 
-Ce projet se déroule sur deux semaines, dont une semaine de programmation.
+Ce projet se dÃ©roule sur deux semaines, dont une semaine de programmation.
