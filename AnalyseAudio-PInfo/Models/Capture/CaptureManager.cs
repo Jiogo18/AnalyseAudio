@@ -115,8 +115,8 @@ namespace AnalyseAudio_PInfo.Models.Capture
         /// </summary>
         public void Stop()
         {
-            State = CaptureStatus.Stopped;
             if (State == CaptureStatus.Stopped || SelectedDevice == null) return;
+            State = CaptureStatus.Stopped;
             Logger.WriteLine($"Stop recording {SelectedDevice.DisplayName}");
             SelectedDevice.Stop();
         }
