@@ -10,7 +10,7 @@
   <Identity
     Name="CDDCEF00-047A-45A9-A69B-A68CB56EC692"
     Publisher="CN=Jerome"
-    Version="1.0.3.0" />
+    Version="1.0.4.0" />
 
   <Properties>
     <DisplayName>AnalyseAudio</DisplayName>
@@ -40,13 +40,12 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
-      <Extensions>
-      </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <DeviceCapability Name="microphone"/>
   </Capabilities>
 
   <genTemplate:Metadata>

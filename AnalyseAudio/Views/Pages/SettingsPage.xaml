@@ -61,6 +61,9 @@
                     x:Uid="Settings_AboutDescription"
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
+                <TextBlock>
+                    <Hyperlink NavigateUri="https://github.com/Jiogo18/AnalyseAudio">Dépôt GitHub</Hyperlink>
+                </TextBlock>
             </StackPanel>
         </StackPanel>
     </Grid>
