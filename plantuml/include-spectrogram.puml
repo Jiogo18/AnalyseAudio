@@ -1,10 +1,10 @@
 @startuml
 
-!include .\\AnalyseAudio-simplified\Models\AudioStream.puml
-!include .\\AnalyseAudio-simplified\Models\Spectro\SpectrogramGenerator.puml
-!include .\\AnalyseAudio-simplified\ViewModels\SpectrogramConfigViewModel.puml
-!include .\\AnalyseAudio-simplified\ViewModels\SpectrogramViewModel.puml
-!include .\\AnalyseAudio-simplified\Views\Spectrogram\SpectrogramWindow.xaml.puml
-!include .\\AnalyseAudio-simplified\Views\Spectrogram\SpectrogramElement.xaml.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/AudioStream.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Spectro/SpectrogramGenerator.puml
+!include ./AnalyseAudio-Pinfo-simplified/ViewModels/SpectrogramConfigViewModel.puml
+!include ./AnalyseAudio-Pinfo-simplified/ViewModels/SpectrogramViewModel.puml
+!include ./AnalyseAudio-Pinfo-simplified/Views/Spectrogram/SpectrogramWindow.xaml.puml
+!include ./AnalyseAudio-Pinfo-simplified/Views/Spectrogram/SpectrogramElement.xaml.puml
 
 @enduml

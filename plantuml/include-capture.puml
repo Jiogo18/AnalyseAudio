@@ -1,13 +1,13 @@
 @startuml
-!include .\\AnalyseAudio-simplified\Models\AudioStream.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\CaptureManager.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\DeviceCapture.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\DeviceCaptureManager.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\DeviceMicrophone.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\DeviceSpeaker.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\DeviceWasapi.puml
-!include .\\AnalyseAudio-simplified\Models\Capture\DeviceWaveIn.puml
-!include .\\AnalyseAudio-simplified\ViewModels\CaptureViewModel.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/AudioStream.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/CaptureManager.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/DeviceCapture.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/DeviceCaptureManager.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/DeviceMicrophone.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/DeviceSpeaker.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/DeviceWasapi.puml
+!include ./AnalyseAudio-Pinfo-simplified/Models/Capture/DeviceWaveIn.puml
+!include ./AnalyseAudio-Pinfo-simplified/ViewModels/CaptureViewModel.puml
 CaptureViewModel -> DeviceCaptureManager
 
 @enduml
