@@ -1,4 +1,4 @@
-﻿using AnalyseAudio.Models.Common;
+using AnalyseAudio.Models.Common;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
@@ -9,7 +9,8 @@ using System.IO;
 namespace AnalyseAudio.Models.Spectro
 {
     /// <summary>
-    /// An interface for Spectrogram.SpectrogramGenerator
+    /// An interface for Spectrogram.
+    /// 
     /// </summary>
     public class SpectrogramGenerator : NotifyBase
     {
@@ -162,7 +163,7 @@ namespace AnalyseAudio.Models.Spectro
         /// </summary>
         private void UpdateVerticalImage()
         {
-            Bitmap verticalBitmap = generator.GetVerticalScale(80);
+            Bitmap verticalBitmap = FrequencyScaleGenerator.GenerateFrequencyScaleBitmap(FreqMin, FreqMax, width: 70, height: 400, margin: 10);
             SpectrogramVerticalImage.DispatcherQueue.TryEnqueue(() =>
             {
                 SetBitmapImageWithBitmapAndStream(verticalBitmap, SpectrogramVerticalImage);
