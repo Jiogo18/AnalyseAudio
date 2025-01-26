@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ namespace AnalyseAudio.Views
     /// </summary>
     public sealed partial class FrequencySlider : Grid, INotifyPropertyChanged
     {
-        double _minimum = 1;
+        double _minimum = 0;
         public double Minimum { get => _minimum; set { if (_minimum == value) return; _minimum = value; OnPropertyChanged(); OnPropertyChanged(nameof(MinLinear)); } }
 
         double _maximum = 20000;
@@ -44,7 +44,7 @@ namespace AnalyseAudio.Views
         private double ValueLinear
         {
             get => FrequencyToLinear(Frequency);
-set { Frequency = LinearToFrequency(value); }
+            set { Frequency = LinearToFrequency(value); }
         }
 
         public FrequencySlider()
@@ -53,8 +53,10 @@ set { Frequency = LinearToFrequency(value); }
         }
 
 
-        static double FrequencyToLinear(double freq) => Math.Log((freq + 9) / 10) / Math.Log(2000) * 4000;
-        static double LinearToFrequency(double value) => Math.Pow(2000, value / 4000) * 10 - 9;
+        public static readonly int NB_VALUES = 4000;
+        public static readonly int MAX_FREQUENCY = 20000;
+        public static double FrequencyToLinear(double freq) => Math.Log(freq + 1) / Math.Log(MAX_FREQUENCY + 1) * NB_VALUES;
+        public static double LinearToFrequency(double value) => Math.Pow(MAX_FREQUENCY + 1, value / NB_VALUES) - 1;
         static double EcartRelatif(double a, double b) => Math.Abs((a - b) / (a != 0 ? a : 1));
     }
 }

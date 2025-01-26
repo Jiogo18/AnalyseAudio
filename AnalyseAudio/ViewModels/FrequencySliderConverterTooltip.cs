@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Data;
+﻿using AnalyseAudio.Views;
+using Microsoft.UI.Xaml.Data;
 using System;
 
 namespace AnalyseAudio.ViewModels
@@ -10,7 +11,8 @@ namespace AnalyseAudio.ViewModels
     {
         public object Convert(object value, Type targetType, object parameter, string culture)
         {
-            double freq = Math.Pow(2000, (double)value / 4000) * 10 - 9;
+            double freq = FrequencySlider.LinearToFrequency((double)value);
+            if (freq == 0) return "0";
             return freq >= 100 ? Math.Round(freq) : Math.Round(freq, 2 - (int)Math.Floor(Math.Log10(freq)));
         }
 

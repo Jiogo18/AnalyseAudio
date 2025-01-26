@@ -28,7 +28,7 @@ namespace AnalyseAudio.ViewModels
         }
 
         int _fftSize = 4096;
-        public int FFTSize { get => _fftSize; set { if (_fftSize == value) return; _fftSize = value; OnPropertyChanged(nameof(FFTSize)); } }
+        public int FFTSize { get => _fftSize; set { if (_fftSize == value) return; _fftSize = value; UpdateFreqRange(); OnPropertyChanged(nameof(FFTSize)); } }
         public readonly int[] FFTSizes = { 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384 };
         int _stepSize = 200;
         public int StepSize { get => _stepSize; set { if (_stepSize == value) return; _stepSize = value; OnPropertyChanged(nameof(StepSize)); } }
@@ -42,8 +42,7 @@ namespace AnalyseAudio.ViewModels
             {
                 if (_freqMin == value) return;
                 _freqMin = value;
-                if (FreqMax <= FreqMin) FreqMax = FreqMin + 1;
-                OnPropertyChanged(nameof(FreqMin));
+                UpdateFreqRange();
             }
         }
         double _freqMax = 3000;
@@ -54,8 +53,8 @@ namespace AnalyseAudio.ViewModels
             {
                 if (_freqMax == value) return;
                 _freqMax = value;
-                if (FreqMax <= FreqMin) FreqMin = FreqMax - 1;
-                OnPropertyChanged(nameof(FreqMax));
+                if (FreqMax <= FreqMin) _freqMin = Math.Max(0, FreqMax - 0.001);
+                UpdateFreqRange();
             }
         }
 
@@ -71,6 +70,32 @@ namespace AnalyseAudio.ViewModels
         readonly List<string> PropertiesChanged = new();
         Task TaskWaitUpdate;
         DateTime TimeWaitUpdate;
+
+        public void UpdateFreqRange()
+        {
+            // Round FreqMin and FreqMax with Spectrogram.Settings' formulas
+            // This prevents error raised in CaptureStream_DataAvailable
+            SpectrogramGenerator generator = Manager.SpectrogramStream;
+            double FreqNyquist = generator.SampleRate / 2;
+            double HzPerPixel = (double)generator.SampleRate / FFTSize;
+            double FftIndex1 = (FreqMin == 0) ? 0 : (int)(FreqMin / HzPerPixel);
+            double FftIndex2 = (FreqMax >= FreqNyquist) ? FFTSize / 2 : (int)(FreqMax / HzPerPixel);
+            if (FftIndex1 >= FftIndex2)
+            {
+                FftIndex2 = FftIndex1 + 1;
+            }
+
+            if (_freqMin != FftIndex1 * HzPerPixel)
+            {
+                _freqMin = FftIndex1 * HzPerPixel;
+                OnPropertyChanged(nameof(FreqMin));
+            }
+            if (_freqMax != FftIndex2 * HzPerPixel)
+            {
+                _freqMax = FftIndex2 * HzPerPixel;
+                OnPropertyChanged(nameof(FreqMax));
+            }
+        }
 
         public static void OpenSpectrogram()
         {

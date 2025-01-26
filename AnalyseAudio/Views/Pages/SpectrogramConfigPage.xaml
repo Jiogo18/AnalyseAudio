@@ -50,10 +50,10 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Spectrogram_FreqMin" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <views:FrequencySlider Grid.Row="1" Grid.Column="1" x:Name="sliderFreqMin" Frequency="{x:Bind Path=ViewModel.FreqMin, Mode=TwoWay}" Margin="10" />
+                    <views:FrequencySlider Grid.Row="1" Grid.Column="1" x:Name="sliderFreqMin" Frequency="{x:Bind Path=ViewModel.FreqMin, Mode=TwoWay}" Minimum="0" Maximum="19999" Margin="10" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Spectrogram_FreqMax" VerticalAlignment="Center" Margin="10,10,0,10" />
-                    <views:FrequencySlider Grid.Row="2" Grid.Column="1" x:Name="sliderFreqMax" Frequency="{x:Bind Path=ViewModel.FreqMax, Mode=TwoWay}" Margin="10" />
+                    <views:FrequencySlider Grid.Row="2" Grid.Column="1" x:Name="sliderFreqMax" Frequency="{x:Bind Path=ViewModel.FreqMax, Mode=TwoWay}" Minimum="0.001" Maximum="20000" Margin="10" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" x:Uid="Spectrogram_Intensity" VerticalAlignment="Center" Margin="10,10,0,10" />
                     <Slider Grid.Row="3" Grid.Column="1" x:Name="sliderIntensity" Minimum="0" Maximum="1000" Value="{x:Bind Path=ViewModel.Intensity, Mode=TwoWay}" Margin="10" />

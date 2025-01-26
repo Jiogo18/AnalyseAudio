@@ -127,6 +127,12 @@ namespace AnalyseAudio.Models.Spectro
                 {
                     CreateGenerator(new SpectrogramConfig(generator) { SampleRate = e.SampleRate });
                 }
+                if (generator.FreqMin == generator.FreqMax)
+                {
+                    Pause();
+                    Logger.Error("Generator configuration is not valid (FreqMin == FreqMax). Try increasing frequency range, FFT width or Sample Rate.");
+                    return;
+                }
                 generator.Add(data, true);
                 bitmap = generator.GetBitmap(Intensity, dB: IsdB, roll: IsRoll);
             }
