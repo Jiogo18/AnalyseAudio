@@ -10,8 +10,9 @@ namespace AnalyseAudio.Views.Keyboard
     public sealed partial class KeyboardElement : Grid
     {
         readonly IDictionary<int, WaveOutEvent> wavesOut = new Dictionary<int, WaveOutEvent>();
-        string[] WavesType { get; } = Enum.GetNames<SignalGeneratorType>();
-        string WaveType { get; set; } = Enum.GetName(SignalGeneratorType.Sin);
+        public readonly SignalGeneratorType[] WavesType = Enum.GetValues<SignalGeneratorType>();
+        SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
+        double Gain { get; set; } = 0.02;
 
         public KeyboardElement()
         {
@@ -46,15 +47,15 @@ namespace AnalyseAudio.Views.Keyboard
         {
             if (wavesOut.ContainsKey(note)) return;
 
-            var sine20Seconds = new SignalGenerator()
+            var signalGenerator = new SignalGenerator()
             {
-                Gain = 0.2,
+                Gain = Gain,
                 Frequency = frequency,
-                Type = Enum.Parse<SignalGeneratorType>(WaveType),
+                Type = WaveType,
             };
 
             var wo = new WaveOutEvent();
-            wo.Init(sine20Seconds);
+            wo.Init(signalGenerator);
             wo.Play();
             wavesOut.Add(note, wo);
             Logger.WriteLine($"Piano {note} ({frequency} Hz) playing");
