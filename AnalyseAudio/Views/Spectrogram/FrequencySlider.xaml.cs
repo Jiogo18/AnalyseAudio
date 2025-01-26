@@ -1,4 +1,4 @@
-﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.ComponentModel;
@@ -41,8 +41,11 @@ namespace AnalyseAudio.Views
 
         private double MinLinear => FrequencyToLinear(Minimum); // 0
         private double MaxLinear => FrequencyToLinear(Maximum); // 4000
-        private double ValueLinear => FrequencyToLinear(Frequency);
-
+        private double ValueLinear
+        {
+            get => FrequencyToLinear(Frequency);
+set { Frequency = LinearToFrequency(value); }
+        }
 
         public FrequencySlider()
         {
@@ -53,10 +56,5 @@ namespace AnalyseAudio.Views
         static double FrequencyToLinear(double freq) => Math.Log((freq + 9) / 10) / Math.Log(2000) * 4000;
         static double LinearToFrequency(double value) => Math.Pow(2000, value / 4000) * 10 - 9;
         static double EcartRelatif(double a, double b) => Math.Abs((a - b) / (a != 0 ? a : 1));
-
-        private void Slider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            Frequency = LinearToFrequency(e.NewValue);
-        }
     }
 }
