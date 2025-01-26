@@ -1,7 +1,6 @@
-using AnalyseAudio.Models.Common;
+﻿using AnalyseAudio.Models.Common;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -78,8 +77,11 @@ namespace AnalyseAudio.Models.Spectro
         /// <param name="config"></param>
         public void CreateGenerator(SpectrogramConfig config)
         {
-            generator = config.CreateGenerator();
-            generator.SetFixedWidth(FixedWidth);
+            lock (this)
+            {
+                generator = config.CreateGenerator();
+                generator.SetFixedWidth(FixedWidth);
+            }
             UpdateVerticalImage();
             OnPropertyChanged();
         }
@@ -114,28 +116,27 @@ namespace AnalyseAudio.Models.Spectro
         /// <param name="e"></param>
         private void CaptureStream_DataAvailable(object sender, DataReceivedEventArgs e)
         {
-            if (generator.SampleRate != e.SampleRate)
-            {
-                CreateGenerator(new SpectrogramConfig(generator) { SampleRate = e.SampleRate });
-            }
-
             double[] data = new double[e.Length];
             for (int i = 0; i < e.Length; i++)
                 data[i] = e.Data[i];
-            lock (generator)
-                generator.Add(data, true);
+            Bitmap bitmap;
 
-            try
+            lock (this)
             {
-                Bitmap bitmap = generator.GetBitmap(Intensity, dB: IsdB, roll: IsRoll);
-                SpectrogramImage.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Low, () =>
+                if (generator.SampleRate != e.SampleRate)
                 {
-                    SetBitmapImageWithBitmapAndStream(bitmap, SpectrogramImage);
-                    OnPropertyChanged(nameof(SpectrogramImage));
-                    bitmap.Dispose();
-                });
+                    CreateGenerator(new SpectrogramConfig(generator) { SampleRate = e.SampleRate });
+                }
+                generator.Add(data, true);
+                bitmap = generator.GetBitmap(Intensity, dB: IsdB, roll: IsRoll);
             }
-            catch (Exception) { } // Recreating the generator
+
+            SpectrogramImage.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Low, () =>
+            {
+                SetBitmapImageWithBitmapAndStream(bitmap, SpectrogramImage);
+                OnPropertyChanged(nameof(SpectrogramImage));
+                bitmap.Dispose();
+            });
         }
 
         /// <summary>
