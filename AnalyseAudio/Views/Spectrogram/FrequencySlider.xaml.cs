@@ -53,10 +53,8 @@ namespace AnalyseAudio.Views
         }
 
 
-        public static readonly int NB_VALUES = 4000;
-        public static readonly int MAX_FREQUENCY = 20000;
-        public static double FrequencyToLinear(double freq) => Math.Log(freq + 1) / Math.Log(MAX_FREQUENCY + 1) * NB_VALUES;
-        public static double LinearToFrequency(double value) => Math.Pow(MAX_FREQUENCY + 1, value / NB_VALUES) - 1;
+        public static double FrequencyToLinear(double freq) => freq;
+        public static double LinearToFrequency(double value) => value;
         static double EcartRelatif(double a, double b) => Math.Abs((a - b) / (a != 0 ? a : 1));
     }
 }
