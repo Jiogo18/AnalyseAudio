@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace AnalyseAudio.Views
@@ -29,7 +30,11 @@ namespace AnalyseAudio.Views
         private async Task ScrollToBottom()
         {
             await Task.Delay(1);
-            Scroller.ChangeView(null, Scroller.ExtentHeight, null, true);
+            try
+            {
+                Scroller.ChangeView(null, Scroller.ExtentHeight, null, true);
+            }
+            catch (COMException) { } // App closing
         }
 
         /// <summary>
