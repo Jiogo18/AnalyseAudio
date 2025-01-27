@@ -90,6 +90,7 @@ namespace AnalyseAudio
             base.OnLaunched(args);
             var activationService = App.GetService<IActivationService>();
             await activationService.ActivateAsync(args);
+            MainWindow.AppWindow.SetIcon("Assets/1F50A_color_64.ico");
 
             MainWindow.Closed += MainWindow_Closed;
             Logger.Initialize();
