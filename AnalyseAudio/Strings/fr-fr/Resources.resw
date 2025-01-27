@@ -244,6 +244,9 @@ Le résultat s'affichage via un spectrogramme</value>
 	<data name="Spectrogram_Roll.Text" xml:space="preserve">
     <value>Balais</value>
   </data>
+  <data name="Spectrogram_Colormap.Text" xml:space="preserve">
+    <value>Coloration</value>
+  </data>
 	<data name="Keyboard_WaveType.Text" xml:space="preserve">
     <value>Type de signal</value>
   </data>

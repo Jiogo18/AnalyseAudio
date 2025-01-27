@@ -245,6 +245,9 @@ The result is displayed via a spectrogram.</value>
   <data name="Spectrogram_Roll.Text" xml:space="preserve">
     <value>Roll</value>
   </data>
+  <data name="Spectrogram_Colormap.Text" xml:space="preserve">
+    <value>Colormap</value>
+  </data>
 	<data name="Keyboard_WaveType.Text" xml:space="preserve">
     <value>Wave Type</value>
   </data>

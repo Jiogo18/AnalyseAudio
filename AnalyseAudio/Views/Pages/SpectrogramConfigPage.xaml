@@ -67,6 +67,9 @@
 
                         <TextBlock x:Uid="Spectrogram_Roll" VerticalAlignment="Center" Margin="10,10,0,10" />
                         <CheckBox x:Name="checkBoxRoll" IsChecked="{x:Bind Path=ViewModel.Roll, Mode=TwoWay}" Margin="10" />
+
+                        <TextBlock x:Uid="Spectrogram_Colormap" VerticalAlignment="Center" Margin="10,10,0,10" />
+                        <ComboBox x:Name="comboBoxColormap" ItemsSource="{x:Bind Path=ViewModel.ColormapNames}" SelectedValue="{x:Bind Path=ViewModel.ColormapName, Mode=TwoWay}" Margin="10" />
                     </StackPanel>
                 </Grid>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10" HorizontalAlignment="Right" Orientation="Horizontal">

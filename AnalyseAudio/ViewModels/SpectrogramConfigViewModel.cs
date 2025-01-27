@@ -24,6 +24,7 @@ namespace AnalyseAudio.ViewModels
             _verticalImage = generator.IsVerticalImageEnabled;
             _viewdB = generator.IsdB;
             _roll = generator.IsRoll;
+            _colormapName = generator.Generator.Colormap.Name;
             OnPropertyChanged();
         }
 
@@ -66,6 +67,9 @@ namespace AnalyseAudio.ViewModels
         public bool DB { get => _viewdB; set { if (_viewdB == value) return; _viewdB = value; OnPropertyChanged(nameof(DB)); } }
         bool _roll = false;
         public bool Roll { get => _roll; set { if (_roll == value) return; _roll = value; OnPropertyChanged(nameof(Roll)); } }
+        public string[] ColormapNames => Spectrogram.Colormap.GetColormapNames();
+        string _colormapName;
+        public string ColormapName { get => _colormapName; set { if (_colormapName == value) return; _colormapName = value; OnPropertyChanged(nameof(ColormapName)); } }
 
         readonly List<string> PropertiesChanged = new();
         Task TaskWaitUpdate;
@@ -203,6 +207,9 @@ namespace AnalyseAudio.ViewModels
                     break;
                 case nameof(Roll):
                     Manager.SpectrogramStream.IsRoll = Roll;
+                    break;
+                case nameof(ColormapName):
+                    Manager.SpectrogramStream.Generator.Colormap = Spectrogram.Colormap.GetColormap(ColormapName);
                     break;
             }
         }
