@@ -26,6 +26,7 @@
     <PackageLicenseFile>..\AnalyseAudio\LICENSE.txt</PackageLicenseFile>
     <SignAssembly>True</SignAssembly>
     <DefaultLanguage>fr-FR</DefaultLanguage>
+    <ApplicationIcon>Assets\1F50A_color_64.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
