@@ -1,0 +1,26 @@
+<Grid
+    x:Class="AnalyseAudio.Views.LogSlider"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:AnalyseAudio.ViewModels"
+    xmlns:views="using:AnalyseAudio.Views"
+    d:DataContext="{d:DesignInstance Type=views:LogSlider}"
+    mc:Ignorable="d">
+    <Grid.Resources>
+        <viewmodels:LogSliderTooltipConverter x:Key="LogSliderTooltipConverter" />
+    </Grid.Resources>
+    <Slider
+        x:Name="slider"
+        Maximum="{x:Bind Path=MaxLinear, Mode=OneTime}"
+        Minimum="{x:Bind Path=MinLinear, Mode=OneTime}"
+        StepFrequency="{x:Bind Path=StepFrequency, Mode=OneWay}"
+        Value="{x:Bind Path=ValueLinear, Mode=TwoWay}"
+        >
+        <Slider.ThumbToolTipValueConverter>
+            <viewmodels:LogSliderTooltipConverter Minimum="{x:Bind Path=Minimum}" Maximum="{x:Bind Path=Maximum}" CenterValue="{x:Bind Path=CenterValue}" />
+        </Slider.ThumbToolTipValueConverter>
+
+    </Slider>
+</Grid>

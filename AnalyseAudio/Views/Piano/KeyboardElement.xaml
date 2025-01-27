@@ -26,7 +26,7 @@
         <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{x:Bind Path=WavesType}" SelectedItem="{x:Bind Path=WaveType, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,10,0,10" />
 
         <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Keyboard_Gain" VerticalAlignment="Center" Margin="10,10,0,10" />
-        <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="1" StepFrequency="0.001" MinWidth="400"  Width="auto" Value="{x:Bind Path=Gain, Mode=TwoWay}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,0,10" />
+        <views:LogSlider Grid.Row="1" Grid.Column="1" Minimum="0" CenterValue="0.1"  Maximum="1" StepFrequency="0.001" MinWidth="400"  Width="auto" Value="{x:Bind Path=Gain, Mode=TwoWay}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,0,10" />
     </Grid>
 
     <StackPanel x:Name="Whites" Grid.Row="1" Orientation="Horizontal" />
