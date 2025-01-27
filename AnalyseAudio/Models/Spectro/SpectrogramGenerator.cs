@@ -97,7 +97,15 @@ namespace AnalyseAudio.Models.Spectro
         public int FixedWidth
         {
             get => _fixedWidth;
-            set { if (_fixedWidth == value) return; _fixedWidth = value; OnPropertyChanged(nameof(FixedWidth)); Generator?.SetFixedWidth(value); }
+            set
+            {
+                if (_fixedWidth == value) return;
+                _fixedWidth = value;
+                OnPropertyChanged(nameof(FixedWidth));
+                if (Generator != null)
+                    lock (this)
+                        Generator.SetFixedWidth(value);
+            }
         }
         bool _verticalImageEnabled = false;
         public bool IsVerticalImageEnabled

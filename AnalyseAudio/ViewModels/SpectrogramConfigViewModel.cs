@@ -127,7 +127,7 @@ namespace AnalyseAudio.ViewModels
                     break;
                 case nameof(IsAutoUpdate):
                     Update();
-                    break;
+                    return;
                 default:
                     PropertiesChanged.Add(propertyName);
                     break;
@@ -137,12 +137,11 @@ namespace AnalyseAudio.ViewModels
             {
                 bool WaitBeforeUpdating = propertyName switch
                 {
-                    "FFTSize" => false,
-                    "FixedSize" => false,
-                    "IsAutoUpdate" => false,
-                    "VerticalImage" => false,
-                    "DB" => false,
-                    "Roll" => false,
+                    nameof(IsAutoUpdate) => false,
+                    nameof(Intensity) => false,
+                    nameof(VerticalImage) => false,
+                    nameof(DB) => false,
+                    nameof(Roll) => false,
                     _ => true,
                 };
 
